@@ -11,11 +11,11 @@ package nz.ac.aut.ense701.gameModel;
  */
 public enum Terrain
 {
-    SAND(".", 1.0),
-    FOREST("*", 2.0),
-    WETLAND ("#", 2.5),
-    SCRUB("^", 3.0),
-    WATER("~", 4.0);
+    SAND("0", 1.0),
+    FOREST("1", 2.0),
+    WETLAND ("2", 2.5),
+    SCRUB("3", 3.0),
+    WATER("4", 4.0);
     
     private final double difficulty;
     private final String stringRep;
