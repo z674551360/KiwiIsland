@@ -447,7 +447,7 @@ public class Game {
 	/**
 	 * Count any kiwis in this position
 	 */
-	public void countKiwi() {
+	public void countKiwi(Object Kiwi) {
 		// check if there are any kiwis here
 		for (Occupant occupant : island.getOccupants(player.getPosition())) {
 			if (occupant instanceof Kiwi) {
@@ -458,6 +458,7 @@ public class Game {
 				}
 			}
 		}
+                island.removeOccupant(player.getPosition(), (Kiwi) Kiwi);
 		updateGameState();
 	}
 
