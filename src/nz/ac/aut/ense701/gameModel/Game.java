@@ -456,6 +456,7 @@ public class Game {
 				if (!kiwi.counted()) {
 					kiwi.count();
 					kiwiCount++;
+                                        island.removeOccupant(player.getPosition(), kiwi);
 				}
 			}
 		}
