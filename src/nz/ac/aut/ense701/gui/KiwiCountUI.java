@@ -577,8 +577,7 @@ public class KiwiCountUI
     }//GEN-LAST:event_listInventoryValueChanged
 
     private void btnCountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCountActionPerformed
-        Object obj = listObjects.getSelectedValue();
-        game.countKiwi(obj);
+        game.countKiwi();
     }//GEN-LAST:event_btnCountActionPerformed
     
     /**
