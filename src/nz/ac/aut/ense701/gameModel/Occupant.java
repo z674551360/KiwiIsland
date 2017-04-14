@@ -10,6 +10,7 @@ package nz.ac.aut.ense701.gameModel;
 public abstract class Occupant 
 {
     private Position position;
+    private final String   type;
     private final String   name;
     private final String   description;    
 
@@ -19,9 +20,10 @@ public abstract class Occupant
      * @param name the name of the occupant
      * @param description a longer description
      */
-    public Occupant(Position position, String name, String description) 
+    public Occupant(Position position, String type, String name, String description) 
     {
-        this.position    = position;
+        this.type        = type;
+    	this.position    = position;
         this.name        = name;
         this.description = description;        
     }
@@ -45,6 +47,17 @@ public abstract class Occupant
     {
         this.position = newPosition;
     }
+    
+    /**
+     * Returns the type of the occupant.
+     * 
+     * @return the type of the occupant
+     */    
+    public String getType() 
+    {
+        return this.type;
+    }
+    
     
     /**
      * Gets the occupant's name.
