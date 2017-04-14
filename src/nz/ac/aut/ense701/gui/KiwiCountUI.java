@@ -7,7 +7,10 @@ import nz.ac.aut.ense701.gameModel.Game;
 import nz.ac.aut.ense701.gameModel.GameEventListener;
 import nz.ac.aut.ense701.gameModel.GameState;
 import nz.ac.aut.ense701.gameModel.MoveDirection;
-
+import java.awt.event.ActionEvent;  
+import java.awt.event.ActionListener;  
+import javax.swing.JPanel;
+import javax.swing.Timer;
 /*
  * User interface form for Kiwi Island.
  * 
@@ -16,10 +19,12 @@ import nz.ac.aut.ense701.gameModel.MoveDirection;
  */
 
 public class KiwiCountUI 
-    extends javax.swing.JFrame 
-    implements GameEventListener
-{
+ extends javax.swing.JFrame 
+ implements GameEventListener,ActionListener
 
+{
+private int delay;  
+    private  int count;  
     /**
      * Creates a GUI for the KiwiIsland game.
      * @param game the game object to represent with this GUI.
@@ -34,11 +39,16 @@ public class KiwiCountUI
         update();
     }
     
+
+ 
+  
+
+
     /**
      * This method is called by the game model every time something changes.
      * Trigger an update.
      */
-    @Override
+    
     public void gameStateChanged()
     {
         update();
@@ -655,4 +665,9 @@ public class KiwiCountUI
     // End of variables declaration//GEN-END:variables
 
     private Game game;
+
+    @Override
+    public void actionPerformed(ActionEvent ae) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
