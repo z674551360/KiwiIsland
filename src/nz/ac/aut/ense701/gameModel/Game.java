@@ -774,7 +774,7 @@ public class Game {
 	}
  public void save() {
             try { 
-FileWriter fw = new FileWriter("./util/player.txt"); 
+FileWriter fw = new FileWriter("./util/players.txt"); 
 BufferedWriter buffw=new BufferedWriter(fw);
 PrintWriter pw=new PrintWriter(buffw);
                  
