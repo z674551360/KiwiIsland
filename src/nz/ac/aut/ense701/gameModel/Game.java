@@ -456,7 +456,7 @@ public class Game {
 				if (!kiwi.counted()) {
 					kiwi.count();
 					kiwiCount++;
-                                        island.removeOccupant(player.getPosition(), kiwi);
+					island.removeOccupant(player.getPosition(), kiwi);
 				}
 			}
 		}
@@ -736,38 +736,37 @@ public class Game {
 	 */
 	private void setUpOccupants(Scanner input) {
 		int numItems = input.nextInt();
-		
+
 		/**
-		 * This ArrayList use to avoid the conflict that 
-		 *Kiwi and Hazard 
-		 *should use a single space, not share with others
-		 *and all occupant should not been placed twice at same place
+		 * This ArrayList use to avoid the conflict that Kiwi and Hazard should
+		 * use a single space, not share with others and all occupant should not
+		 * been placed twice at same place
 		 *
-		 *usedPos is use to store position that avoid repetition
-		 *posList is use to store all used position so Kiwi and Hazard will use other position
+		 * usedPos is use to store position that avoid repetition posList is use
+		 * to store all used position so Kiwi and Hazard will use other position
 		 *
-		 *The Island Data has been modified that will initial Kiwi and Hazard at last
+		 * The Island Data has been modified that will initial Kiwi and Hazard
+		 * at last
 		 */
 		ArrayList<String> usedPos = new ArrayList<String>();
 		ArrayList<String> posList = new ArrayList<String>();
 		/*
-		 * Make sure that these place can not have Hazard, so the game won't end at beginning, LOL!!! 
+		 * Make sure that these place can not have Hazard, so the game won't end
+		 * at beginning, LOL!!!
 		 */
 		posList.add("01");
 		posList.add("02");
 		posList.add("03");
 		posList.add("12");
-		
-		
-		
+
 		for (int i = 0; i < numItems; i++) {
 			/**
-			 * The preType will use to detect whether type changed or not
-			 * if type changed, it will clean the count of posList
+			 * The preType will use to detect whether type changed or not if
+			 * type changed, it will clean the count of posList
 			 */
 			String preType = "";
 			String occType = input.next();
-			if(!preType.equals(occType)){
+			if (!preType.equals(occType)) {
 				preType = occType;
 				usedPos.clear();
 			}
@@ -777,21 +776,22 @@ public class Game {
 			/**
 			 * avoid repetition that place same type at same place
 			 */
-			do{
+			do {
 				occRow = (int) (Math.random() * 9);
 				occCol = (int) (Math.random() * 9);
-			}while(usedPos.contains(occRow+""+occCol));
+			} while (usedPos.contains(occRow + "" + occCol));
 			/*
-			 * avoid the conflict that Kiwi and Hazard should use a single space, not share with others
+			 * avoid the conflict that Kiwi and Hazard should use a single
+			 * space, not share with others
 			 */
-			if(occType.equals("H") || occType.equals("K")){
-				do{
+			if (occType.equals("H") || occType.equals("K")) {
+				do {
 					occRow = (int) (Math.random() * 9);
 					occCol = (int) (Math.random() * 9);
-				}while(usedPos.contains(occRow+""+occCol) || posList.contains(occRow+""+occCol));
+				} while (usedPos.contains(occRow + "" + occCol) || posList.contains(occRow + "" + occCol));
 			}
-			usedPos.add(occRow+""+occCol);
-			posList.add(occRow+""+occCol);
+			usedPos.add(occRow + "" + occCol);
+			posList.add(occRow + "" + occCol);
 			Position occPos = new Position(island, occRow, occCol);
 			Occupant occupant = null;
 
