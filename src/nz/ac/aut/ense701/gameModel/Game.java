@@ -797,23 +797,23 @@ public class Game {
 			if (occType.equals("T")) {
 				double weight = input.nextDouble();
 				double size = input.nextDouble();
-				occupant = new Tool(occPos, occName, occDesc, weight, size);
+				occupant = new Tool(occPos, occType, occName, occDesc, weight, size);
 			} else if (occType.equals("E")) {
 				double weight = input.nextDouble();
 				double size = input.nextDouble();
 				double energy = input.nextDouble();
-				occupant = new Food(occPos, occName, occDesc, weight, size, energy);
+				occupant = new Food(occPos, occType, occName, occDesc, weight, size, energy);
 			} else if (occType.equals("H")) {
 				double impact = input.nextDouble();
-				occupant = new Hazard(occPos, occName, occDesc, impact);
+				occupant = new Hazard(occPos, occType, occName, occDesc, impact);
 			} else if (occType.equals("K")) {
-				occupant = new Kiwi(occPos, occName, occDesc);
+				occupant = new Kiwi(occPos, occType, occName, occDesc);
 				totalKiwis++;
 			} else if (occType.equals("P")) {
-				occupant = new Predator(occPos, occName, occDesc);
+				occupant = new Predator(occPos, occType, occName, occDesc);
 				totalPredators++;
 			} else if (occType.equals("F")) {
-				occupant = new Fauna(occPos, occName, occDesc);
+				occupant = new Fauna(occPos, occType, occName, occDesc);
 			}
 			if (occupant != null)
 				island.addOccupant(occPos, occupant);
