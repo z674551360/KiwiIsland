@@ -777,20 +777,7 @@ public class Game {
 FileWriter fw = new FileWriter("./util/player.txt"); 
 BufferedWriter buffw=new BufferedWriter(fw);
 PrintWriter pw=new PrintWriter(buffw);
-                     pw.println();
-                     pw.println(player.getName());
-                     pw.println(player.getPosition());
-                     pw.println(player.getStaminaLevel());
-                     pw.println(player.getInventory());  
-                     pw.println(player.getCurrentBackpackSize());
-                     pw.println(player.getCurrentBackpackWeight());
-                     pw.println(player.getTrap());
-                     pw.println(player.isAlive());
-                     pw.println(kiwiCount);
-                     pw.println(totalPredators);
-                     pw.println(totalKiwis);
-                     pw.println(predatorsTrapped);
-                     pw.println(state);            
+                 
                pw.close();
 	       buffw.close();
 	       fw.close(); 
