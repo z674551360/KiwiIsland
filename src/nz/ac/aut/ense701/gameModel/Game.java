@@ -8,6 +8,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Locale;
 import java.util.Scanner;
@@ -34,9 +35,9 @@ public class Game {
 	/**
 	 * A new instance of Kiwi island that reads data from "IslandData.txt".
 	 */
-	public Game() {
+	public Game(User user) {
 		eventListeners = new HashSet<GameEventListener>();
-
+		this.currentUser = user;
 		createNewGame();
 	}
 
@@ -460,6 +461,7 @@ public class Game {
 				if (!kiwi.counted()) {
 					kiwi.count();
 					kiwiCount++;
+					island.removeOccupant(player.getPosition(), kiwi);
 				}
 			}
 		}
@@ -719,7 +721,6 @@ public class Game {
 	 *            data from the level file
 	 */
 	private void setUpPlayer(Scanner input) {
-		String playerName = input.next();
 		int playerPosRow = input.nextInt();
 		int playerPosCol = input.nextInt();
 		double playerMaxStamina = input.nextDouble();
@@ -727,7 +728,7 @@ public class Game {
 		double playerMaxBackpackSize = input.nextDouble();
 
 		Position pos = new Position(island, playerPosRow, playerPosCol);
-		player = new Player(pos, playerName, playerMaxStamina, playerMaxBackpackWeight, playerMaxBackpackSize);
+		player = new Player(pos, currentUser.getUserName(), playerMaxStamina, playerMaxBackpackWeight, playerMaxBackpackSize);
 		island.updatePlayerPosition(player);
 	}
 	/**
@@ -738,35 +739,85 @@ public class Game {
 	 */
 	private void setUpOccupants(Scanner input) {
 		int numItems = input.nextInt();
+
+		/**
+		 * This ArrayList use to avoid the conflict that Kiwi and Hazard should
+		 * use a single space, not share with others and all occupant should not
+		 * been placed twice at same place
+		 *
+		 * usedPos is use to store position that avoid repetition posList is use
+		 * to store all used position so Kiwi and Hazard will use other position
+		 *
+		 * The Island Data has been modified that will initial Kiwi and Hazard
+		 * at last
+		 */
+		ArrayList<String> usedPos = new ArrayList<String>();
+		ArrayList<String> posList = new ArrayList<String>();
+		/*
+		 * Make sure that these place can not have Hazard, so the game won't end
+		 * at beginning, LOL!!!
+		 */
+		posList.add("01");
+		posList.add("02");
+		posList.add("03");
+		posList.add("12");
+
 		for (int i = 0; i < numItems; i++) {
+			/**
+			 * The preType will use to detect whether type changed or not if
+			 * type changed, it will clean the count of posList
+			 */
+			String preType = "";
 			String occType = input.next();
+			if (!preType.equals(occType)) {
+				preType = occType;
+				usedPos.clear();
+			}
 			String occName = input.next();
 			String occDesc = input.next();
-			int occRow = input.nextInt();
-			int occCol = input.nextInt();
+			int occRow, occCol;
+			/**
+			 * avoid repetition that place same type at same place
+			 */
+			do {
+				occRow = (int) (Math.random() * 9);
+				occCol = (int) (Math.random() * 9);
+			} while (usedPos.contains(occRow + "" + occCol));
+			/*
+			 * avoid the conflict that Kiwi and Hazard should use a single
+			 * space, not share with others
+			 */
+			if (occType.equals("H") || occType.equals("K")) {
+				do {
+					occRow = (int) (Math.random() * 9);
+					occCol = (int) (Math.random() * 9);
+				} while (usedPos.contains(occRow + "" + occCol) || posList.contains(occRow + "" + occCol));
+			}
+			usedPos.add(occRow + "" + occCol);
+			posList.add(occRow + "" + occCol);
 			Position occPos = new Position(island, occRow, occCol);
 			Occupant occupant = null;
 
 			if (occType.equals("T")) {
 				double weight = input.nextDouble();
 				double size = input.nextDouble();
-				occupant = new Tool(occPos, occName, occDesc, weight, size);
+				occupant = new Tool(occPos, occType, occName, occDesc, weight, size);
 			} else if (occType.equals("E")) {
 				double weight = input.nextDouble();
 				double size = input.nextDouble();
 				double energy = input.nextDouble();
-				occupant = new Food(occPos, occName, occDesc, weight, size, energy);
+				occupant = new Food(occPos, occType, occName, occDesc, weight, size, energy);
 			} else if (occType.equals("H")) {
 				double impact = input.nextDouble();
-				occupant = new Hazard(occPos, occName, occDesc, impact);
+				occupant = new Hazard(occPos, occType, occName, occDesc, impact);
 			} else if (occType.equals("K")) {
-				occupant = new Kiwi(occPos, occName, occDesc);
+				occupant = new Kiwi(occPos, occType, occName, occDesc);
 				totalKiwis++;
 			} else if (occType.equals("P")) {
-				occupant = new Predator(occPos, occName, occDesc);
+				occupant = new Predator(occPos, occType, occName, occDesc);
 				totalPredators++;
 			} else if (occType.equals("F")) {
-				occupant = new Fauna(occPos, occName, occDesc);
+				occupant = new Fauna(occPos, occType, occName, occDesc);
 			}
 			if (occupant != null)
 				island.addOccupant(occPos, occupant);
@@ -801,6 +852,7 @@ PrintWriter pw=new PrintWriter(buffw);
             }catch (IOException ex) {}
     }
 	private Island island;
+	private User currentUser;
 	private Player player;
 	private GameState state;
 	private int kiwiCount;
