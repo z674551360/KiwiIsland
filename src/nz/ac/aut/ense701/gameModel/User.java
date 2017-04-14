@@ -1,8 +1,9 @@
 package nz.ac.aut.ense701.gameModel;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class User {
+public class User implements Serializable{
 	private String userName, password;
 	//private ArrayList<Item> ownedItem;
 

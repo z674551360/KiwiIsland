@@ -30,6 +30,7 @@ public class WelcomePage extends JFrame implements ActionListener {
 	private JPanel space, btn;
 	private Ranking rank;
 	private User currentUser;
+	private final String rankFileName = "ranking";
 
 	public WelcomePage() throws ClassNotFoundException, IOException {
 		super();
@@ -72,29 +73,11 @@ public class WelcomePage extends JFrame implements ActionListener {
 		initUserDatabase();
 	}
 
-	private void initUserDatabase() throws IOException, ClassNotFoundException {
-		String rankFileName = "ranking";
-		FileInputStream in = null;
-		Boolean success = false;
-		try {
-			in = new FileInputStream(rankFileName);
-			success = true;
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			//e.printStackTrace();
-			System.out.println("First run of program, will initial all data");
-		}
-		if (success) {
-			ObjectInputStream rankingObject = new ObjectInputStream(in);
-			rank = (Ranking) rankingObject.readObject();
-		}else{
-			FileOutputStream out = new FileOutputStream(rankFileName); 
-			ObjectOutputStream rankingObject = new ObjectOutputStream(out);
-			rank = new Ranking();
-			rankingObject.writeObject(rank);
-			rankingObject.flush();
-		}
+	private void initUserDatabase(){
+		rank = new Ranking();
+		
 	}
+	
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
