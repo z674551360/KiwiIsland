@@ -30,9 +30,9 @@ public class Game {
 	/**
 	 * A new instance of Kiwi island that reads data from "IslandData.txt".
 	 */
-	public Game() {
+	public Game(User user) {
 		eventListeners = new HashSet<GameEventListener>();
-
+		this.currentUser = user;
 		createNewGame();
 	}
 
@@ -716,7 +716,6 @@ public class Game {
 	 *            data from the level file
 	 */
 	private void setUpPlayer(Scanner input) {
-		String playerName = input.next();
 		int playerPosRow = input.nextInt();
 		int playerPosCol = input.nextInt();
 		double playerMaxStamina = input.nextDouble();
@@ -724,7 +723,7 @@ public class Game {
 		double playerMaxBackpackSize = input.nextDouble();
 
 		Position pos = new Position(island, playerPosRow, playerPosCol);
-		player = new Player(pos, playerName, playerMaxStamina, playerMaxBackpackWeight, playerMaxBackpackSize);
+		player = new Player(pos, currentUser.getUserName(), playerMaxStamina, playerMaxBackpackWeight, playerMaxBackpackSize);
 		island.updatePlayerPosition(player);
 	}
 
@@ -822,6 +821,7 @@ public class Game {
 	}
 
 	private Island island;
+	private User currentUser;
 	private Player player;
 	private GameState state;
 	private int kiwiCount;

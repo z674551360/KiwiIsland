@@ -41,7 +41,7 @@ public class WelcomePage extends JFrame implements ActionListener {
 		Dimension frameDimension = this.getSize();
 		this.setLocation((screenDimension.width - frameDimension.width) / 2,
 				(screenDimension.height - frameDimension.height) / 2);
-		this.setTitle("AUT Sudoku Championship");
+		this.setTitle("KiwiIland Management System");
 
 		bg = new Background();
 		btn = new JPanel();
@@ -117,7 +117,7 @@ public class WelcomePage extends JFrame implements ActionListener {
 			} else {
 				this.setVisible(false);
 				// create the game object
-				final Game game = new Game();
+				final Game game = new Game(currentUser);
 				// create the GUI for the game
 				final KiwiCountUI gui = new KiwiCountUI(game);
 				// make the GUI visible
