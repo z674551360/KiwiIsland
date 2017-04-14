@@ -102,13 +102,13 @@ public class WelcomePage extends JFrame implements ActionListener {
 		Object source = arg0.getSource();
 		if (source == newPlayer) {
 			CreateNew creat;
-			String nickName = null, userName = null, password = null;
+			String userName = null, password = null;
 			do {
 				creat = new CreateNew();
 				JOptionPane creatplayer = creat.creat;
 				userName = creat.getUserNmae();
 				password = creat.getPassword();
-			} while (nickName.length() == 0 || userName.length() == 0 || password.length() < 6);
+			} while (userName.length() == 0 || password.length() < 6);
 			currentUser = new User(userName, password);
 
 			if (rank.addUser(currentUser) == false) {
