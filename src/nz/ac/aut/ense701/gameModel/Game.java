@@ -35,21 +35,26 @@ public class Game {
 	/**
 	 * A new instance of Kiwi island that reads data from "IslandData.txt".
 	 */
-	public Game(User user) {
+	public Game(User user, Boolean conti) {
 		eventListeners = new HashSet<GameEventListener>();
 		this.currentUser = user;
-		createNewGame();
+		createNewGame(conti);
 	}
 
 	/**
 	 * Starts a new game. At this stage data is being read from a text file
 	 */
-	public void createNewGame() {
+	public void createNewGame(Boolean conti) {
 		totalPredators = 0;
 		totalKiwis = 0;
 		predatorsTrapped = 0;
 		kiwiCount = 0;
-		initialiseIslandFromFile("IslandData.txt");
+		if (!conti) {
+			initialiseIslandFromFile("IslandData.txt");
+		} else {
+			String userName = currentUser.getUserName();
+			contiiseIslandFromFile(userName);
+		}
 		drawIsland();
 		state = GameState.PLAYING;
 		winMessage = "";
@@ -700,6 +705,118 @@ public class Game {
 	}
 
 	/**
+	 * Loads terrain and occupant data from a file. At this stage this method
+	 * assumes that the data file is correct and just throws an exception or
+	 * ignores it if it is not.
+	 * 
+	 * @param fileName
+	 *            file name of the data file
+	 */
+	private void contiiseIslandFromFile(String userName) {
+		try {
+			String fileName = "./data/" + userName;
+			Scanner input = new Scanner(new File(fileName));
+			// make sure decimal numbers are read in the form "123.23"
+			input.useLocale(Locale.US);
+			input.useDelimiter("\\s*,\\s*");
+
+			// create the island with fixed size
+			int numRows = 10;
+			int numColumns = 10;
+			island = new Island(numRows, numColumns);
+
+			// setUpTerrain but from file;
+			for (int row = 0; row < island.getNumRows(); row++) {
+				String terrainRow = input.next();
+				for (int col = 0; col < terrainRow.length(); col++) {
+					Position pos = new Position(island, row, col);
+					String terrainString = terrainRow.substring(col, col + 1);
+					Terrain terrain = Terrain.getTerrainFromStringRepresentation(terrainString);
+					island.setTerrain(pos, terrain);
+				}
+			}
+
+			// read and setup the occupants
+			int numItems = input.nextInt();
+			for (int i = 0; i < numItems; i++) {
+				String occType = input.next();
+				String occName = input.next();
+				String occDesc = input.next();
+				int occRow = input.nextInt();
+				int occCol = input.nextInt();
+				Position occPos = new Position(island, occRow, occCol);
+				Occupant occupant = null;
+
+				if (occType.equals("T")) {
+					double weight = input.nextDouble();
+					double size = input.nextDouble();
+					occupant = new Tool(occPos, occType, occName, occDesc, weight, size);
+				} else if (occType.equals("E")) {
+					double weight = input.nextDouble();
+					double size = input.nextDouble();
+					double energy = input.nextDouble();
+					occupant = new Food(occPos, occType, occName, occDesc, weight, size, energy);
+				} else if (occType.equals("H")) {
+					double impact = input.nextDouble();
+					occupant = new Hazard(occPos, occType, occName, occDesc, impact);
+				} else if (occType.equals("K")) {
+					occupant = new Kiwi(occPos, occType, occName, occDesc);
+					totalKiwis++;
+				} else if (occType.equals("P")) {
+					occupant = new Predator(occPos, occType, occName, occDesc);
+					totalPredators++;
+				} else if (occType.equals("F")) {
+					occupant = new Fauna(occPos, occType, occName, occDesc);
+				}
+				if (occupant != null)
+					island.addOccupant(occPos, occupant);
+			}
+
+			// setUpPlayer item and position;
+			String playerName = userName;
+			int playerPosRow = input.nextInt();
+			int playerPosCol = input.nextInt();
+			double playerMaxStamina = 100.0;
+			double playerMaxBackpackWeight = 10.0;
+			double playerMaxBackpackSize = 5.0;
+			Position pos = new Position(island, playerPosRow, playerPosCol);
+			player = new Player(pos, playerName, playerMaxStamina, playerMaxBackpackWeight, playerMaxBackpackSize);
+			island.updatePlayerPosition(player);
+			player.reduceStamina(playerMaxStamina - input.nextInt());
+
+			int playerItems = input.nextInt();
+			for (int i = 0; i < numItems; i++) {
+				Occupant occupant = null;
+				String occType = input.next();
+				String occName = input.next();
+				String occDesc = input.next();
+				pos = new Position(island, 0, 0);
+				if (occType.equals("T")) {
+					double weight = input.nextDouble();
+					double size = input.nextDouble();
+					occupant = new Tool(pos, occType, occName, occDesc, weight, size);
+				} else if (occType.equals("E")) {
+					double weight = input.nextDouble();
+					double size = input.nextDouble();
+					double energy = input.nextDouble();
+					occupant = new Food(pos, occType, occName, occDesc, weight, size, energy);
+				}
+				if (occupant != null)
+				player.collect((Item) occupant);
+			}
+
+			
+
+			input.close();
+		} catch (FileNotFoundException e) {
+			System.err.println("Unable to find data file");
+		} catch (IOException e) {
+			System.err.println("Problem encountered processing file.");
+		}
+
+	}
+
+	/**
 	 * Randomly generate terrain data and creates the terrain.
 	 * 
 	 */
@@ -721,11 +838,11 @@ public class Game {
 	 *            data from the level file
 	 */
 	private void setUpPlayer(Scanner input) {
-		int playerPosRow = input.nextInt();
-		int playerPosCol = input.nextInt();
-		double playerMaxStamina = input.nextDouble();
-		double playerMaxBackpackWeight = input.nextDouble();
-		double playerMaxBackpackSize = input.nextDouble();
+		int playerPosRow = 0;
+		int playerPosCol = 2;
+		double playerMaxStamina = 100.0;
+		double playerMaxBackpackWeight = 10.0;
+		double playerMaxBackpackSize = 5.0;
 
 		Position pos = new Position(island, playerPosRow, playerPosCol);
 		player = new Player(pos, currentUser.getUserName(), playerMaxStamina, playerMaxBackpackWeight,
@@ -827,20 +944,12 @@ public class Game {
 	}
 
 	public void save() {
-		if(saveLoad==null){
-			saveLoad = new SaveLoad(this);
-			saveLoad.save();
-		}else{
-			saveLoad.save();
-		}
+		SaveGame savegame = new SaveGame(this);
+		savegame.save();
 	}
 
 	public void load() {
-		if(saveLoad==null){
-			saveLoad = new SaveLoad();
-		}else{
-			//////////////////////
-		}
+
 	}
 
 	private Island island;
@@ -852,8 +961,6 @@ public class Game {
 	private int totalKiwis;
 	private int predatorsTrapped;
 	private Set<GameEventListener> eventListeners;
-	
-	private SaveLoad saveLoad;
 
 	private final double MIN_REQUIRED_CATCH = 0.8;
 

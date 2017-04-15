@@ -94,7 +94,7 @@ public class WelcomePage extends JFrame implements ActionListener {
 			} else {
 				this.setVisible(false);
 				// create the game object
-				final Game game = new Game(currentUser);
+				final Game game = new Game(currentUser,false);
 				// create the GUI for the game
 				final KiwiCountUI gui = new KiwiCountUI(game);
 				// make the GUI visible
@@ -111,7 +111,7 @@ public class WelcomePage extends JFrame implements ActionListener {
                     String userName = null; 
                     String password = null;
                     login= new Login();
-		    JOptionPane playerLogin = login.login;
+                    JOptionPane playerLogin = login.login;
                     userName = login.getUserNmae();
                     password = login.getPassword();
                     currentUser = new User(userName, password);
@@ -126,7 +126,7 @@ public class WelcomePage extends JFrame implements ActionListener {
                            System.out.print("Login successful");
                        }else{
                             this.setVisible(false);
-                            final Game game = new Game(currentUser);
+                            final Game game = new Game(currentUser,true);
                             final KiwiCountUI gui = new KiwiCountUI(game);
                             java.awt.EventQueue.invokeLater(new Runnable() {
 			@Override
