@@ -106,42 +106,46 @@ public class WelcomePage extends JFrame implements ActionListener {
 				});
 			}
 		}
-		if (source == login) {
-			Login login;
-			String userName = null;
-			String password = null;
-			login = new Login();
-			JOptionPane playerLogin = login.login;
-			userName = login.getUserNmae();
-			password = login.getPassword();
-			currentUser = new User(userName, password);
-
-			// get infomation fromdatabase
-			String checkName = "abc";
-			String checkPass = "abc";
-			boolean isSaving = false;
-			// TODO Need to change after the saving function have been made
-			if (rank.loadUser(currentUser)) {
-				if (isSaving) {
-					System.out.print("Login successful");
-				} else {
-					this.setVisible(false);
-					final Game game = new Game(currentUser);
-					final KiwiCountUI gui = new KiwiCountUI(game);
-					java.awt.EventQueue.invokeLater(new Runnable() {
-						@Override
-						public void run() {
-							gui.setVisible(true);
-						}
-					});
+		  if(source == login){
+                    Login login;
+                    String userName = null; 
+                    String password = null;
+                    login= new Login();
+		    JOptionPane playerLogin = login.login;
+                    userName = login.getUserNmae();
+                    password = login.getPassword();
+                    currentUser = new User(userName, password);
+                   
+                    //get infomation fromdatabase
+                    String checkName = "abc";
+                    String checkPass = "abc";
+                    boolean isSaving = false;
+                   //TODO Need to change after the saving function have been made
+                    if(rank.loadUser(currentUser)== "1"){
+                       if(isSaving){
+                           System.out.print("Login successful");
+                       }else{
+                            this.setVisible(false);
+                            final Game game = new Game(currentUser);
+                            final KiwiCountUI gui = new KiwiCountUI(game);
+                            java.awt.EventQueue.invokeLater(new Runnable() {
+			@Override
+				public void run() {
+				gui.setVisible(true);
 				}
-			} else {
-				JOptionPane wrongAccount = new JOptionPane();
-				JLabel WrongMessage = new JLabel("Please enter the right username and password");
-
-			}
-
-		}
+			});
+                       }
+                     }
+                     if(rank.loadUser(currentUser)== "2"){
+                         	JOptionPane.showMessageDialog(null, "Plz enter the right PassWord", "WARNING!",
+						JOptionPane.WARNING_MESSAGE);
+                     }
+                     if(rank.loadUser(currentUser)== "3"){
+                         	JOptionPane.showMessageDialog(null, "Plz check the UserName", "WARNING!",
+						JOptionPane.WARNING_MESSAGE);
+                     }
+                    
+	}
 
 	}
 
