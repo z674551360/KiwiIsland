@@ -111,7 +111,7 @@ public class SaveLoad {
 
 	}
 
-	public void load(String fileName, String username) {
+	public void load(String fileName) {
 
 	}
 

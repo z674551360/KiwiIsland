@@ -76,8 +76,7 @@ public class Ranking implements Serializable {
 
 		}
 	}
-
-	public boolean loadUser(User user) {
+public String loadUser(User user) {
 		String userName = user.getUserName();
 		String password = user.getPassword();
 		boolean result = false;
@@ -95,21 +94,27 @@ public class Ranking implements Serializable {
 					if (count2.getString("password").equals(password)) {
 
                                             c.close();
-                                            return true;
+                                            return "1";
 					}
-				}
-                                c.close();
-				return false;
-			}
+                                        
+				}else{
+                                            c.close();
+                                            return  "2";
+                                                    }
+                          
+			}else{
+                            c.close();
+                            return "3";
+                        }
 
 		} catch (Exception e) {
 			e.printStackTrace();
 			// System.err.println(e.getClass().getName() + ": " +
 			// e.getMessage());
-			return false;
+			return null;
 			// System.exit(1);
 		}
-		return false;
+		return null;
 
 	}
 
