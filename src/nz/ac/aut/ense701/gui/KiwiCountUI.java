@@ -18,6 +18,7 @@ import nz.ac.aut.ense701.gameModel.Game;
 import nz.ac.aut.ense701.gameModel.GameEventListener;
 import nz.ac.aut.ense701.gameModel.GameState;
 import nz.ac.aut.ense701.gameModel.MoveDirection;
+import nz.ac.aut.ense701.gameModel.TimeChangeListener;
 
 /*
  * User interface form for Kiwi Island.
@@ -26,7 +27,7 @@ import nz.ac.aut.ense701.gameModel.MoveDirection;
  * @version July 2011
  */
 
-public class KiwiCountUI extends javax.swing.JFrame implements GameEventListener {
+public class KiwiCountUI extends javax.swing.JFrame implements GameEventListener, TimeChangeListener{
 
 	/**
 	 * Creates a GUI for the KiwiIsland game.
@@ -41,6 +42,7 @@ public class KiwiCountUI extends javax.swing.JFrame implements GameEventListener
 		initComponents();
 		initIslandGrid();
 		update();
+		runTimer();
 	}
 
 	/**
@@ -63,9 +65,25 @@ public class KiwiCountUI extends javax.swing.JFrame implements GameEventListener
 					JOptionPane.INFORMATION_MESSAGE);
 		}
 	}
+	
+	
+	/**
+	 * This method is called by the game model every second.
+	 * Trigger an update.
+	 */
+	@Override
+	public void timeChanged(String time) {
+		// TODO Auto-generated method stub
+		lbTime.setText(time);
+	}
 
 	private void setAsGameListener() {
 		game.addGameEventListener(this);
+	}
+	
+	private void runTimer() {
+		game.getTimer().addTimeListener(this);
+		game.getTimer().start();
 	}
 
 	/**
@@ -147,8 +165,8 @@ public class KiwiCountUI extends javax.swing.JFrame implements GameEventListener
         txtPredatorsLeft = new javax.swing.JLabel();
         btnSave = new javax.swing.JButton();
         btnLoad = new javax.swing.JButton();
-        LTimer = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        lbTimer = new javax.swing.JLabel();
+        lbTime = new javax.swing.JLabel();
         javax.swing.JPanel pnlMovement = new javax.swing.JPanel();
         btnMoveNorth = new javax.swing.JButton();
         btnMoveSouth = new javax.swing.JButton();
@@ -319,18 +337,18 @@ public class KiwiCountUI extends javax.swing.JFrame implements GameEventListener
         gridBagConstraints.gridy = 6;
         pnlPlayerData.add(btnLoad, gridBagConstraints);
 
-        LTimer.setText("Timer Spend:");
+        lbTimer.setText("Timer Spend:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 7;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        pnlPlayerData.add(LTimer, gridBagConstraints);
+        pnlPlayerData.add(lbTimer, gridBagConstraints);
 
-        jLabel1.setText("00:00:00");
+        lbTime.setText("00:00:00");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        pnlPlayerData.add(jLabel1, gridBagConstraints);
+        pnlPlayerData.add(lbTime, gridBagConstraints);
 
         pnlPlayer.add(pnlPlayerData, java.awt.BorderLayout.WEST);
 
@@ -647,7 +665,6 @@ public class KiwiCountUI extends javax.swing.JFrame implements GameEventListener
 	}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel LTimer;
     private javax.swing.JButton btnCollect;
     private javax.swing.JButton btnCount;
     private javax.swing.JButton btnDrop;
@@ -659,7 +676,8 @@ public class KiwiCountUI extends javax.swing.JFrame implements GameEventListener
     private javax.swing.JButton btnSave;
     private javax.swing.JButton btnUse;
     private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel lbTime;
+    private javax.swing.JLabel lbTimer;
     private javax.swing.JLabel lblKiwisCounted;
     private javax.swing.JLabel lblPredators;
     private javax.swing.JList listInventory;
@@ -674,4 +692,6 @@ public class KiwiCountUI extends javax.swing.JFrame implements GameEventListener
     // End of variables declaration//GEN-END:variables
 
 	private Game game;
+
+	
 }

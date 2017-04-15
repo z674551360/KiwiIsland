@@ -666,6 +666,17 @@ public class Game {
 			listener.gameStateChanged();
 		}
 	}
+	
+	/**
+	 * Return Timer
+	 * 
+	 * @return Timer
+	 */
+	public Timer getTimer() {
+		return (Timer) timer;
+	}
+		
+	
 
 	/**
 	 * Loads terrain and occupant data from a file. At this stage this method
@@ -702,6 +713,7 @@ public class Game {
 		} catch (IOException e) {
 			System.err.println("Problem encountered processing file.");
 		}
+		timer = new Timer(0);
 	}
 
 	/**
@@ -805,7 +817,8 @@ public class Game {
 				player.collect((Item) occupant);
 			}
 
-			
+			//Need Read Time IN
+			timer = new Timer(0);
 
 			input.close();
 		} catch (FileNotFoundException e) {
@@ -961,6 +974,7 @@ public class Game {
 	private int totalKiwis;
 	private int predatorsTrapped;
 	private Set<GameEventListener> eventListeners;
+	private Thread timer;
 
 	private final double MIN_REQUIRED_CATCH = 0.8;
 

@@ -297,7 +297,7 @@
                         </Constraint>
                       </Constraints>
                     </Component>
-                    <Component class="javax.swing.JLabel" name="LTimer">
+                    <Component class="javax.swing.JLabel" name="lbTimer">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="Timer Spend:"/>
                       </Properties>
@@ -307,7 +307,7 @@
                         </Constraint>
                       </Constraints>
                     </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel1">
+                    <Component class="javax.swing.JLabel" name="lbTime">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="00:00:00"/>
                       </Properties>
