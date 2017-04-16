@@ -77,45 +77,40 @@ public class Ranking implements Serializable {
 		}
 	}
 
-	public String loadUser(User user) {
-		String userName = user.getUserName();
-		String password = user.getPassword();
-		boolean result = false;
+	public boolean loadUser(User user) {
+		String userName = "";
+		String password = "";
 		try {
 			Class.forName("org.sqlite.JDBC");
 			Connection c = DriverManager.getConnection("jdbc:sqlite:user.db");
 			System.out.println("Opened database successfully");
-			Statement stat = c.createStatement();
-			ResultSet count1 = stat.executeQuery("SELECT userName From USER where userName ='" + userName + "'");
-			// check the user
-			if (count1.next()) {
-				// take out the password
-				ResultSet count2 = stat.executeQuery("SELECT password from USER where password='" + password + "'");
-				if (count2.next()) {
-					if (count2.getString("password").equals(password)) {
-
-						c.close();
-						return "1";
-					}
-
-				} else {
-					c.close();
-					return "2";
-				}
-
-			} else {
+			
+			String sql = "SELECT userName, password FROM USER WHERE userName = '" + user.getUserName() + "' and password = '"+ user.getPassword() + "'";
+			stmt = c.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+			while (rs.next()) {
+				userName += rs.getString("userName");
+				password += rs.getString("password");
+			}
+			if (userName.equals(user.getUserName()) && password.equals(user.getPassword())) {
+				rs.close();
+				stmt.close();
 				c.close();
-				return "3";
+				return true;
+			} else {
+				rs.close();
+				stmt.close();
+				c.close();
+				return false;
 			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
 			// System.err.println(e.getClass().getName() + ": " +
 			// e.getMessage());
-			return null;
+			return false;
 			// System.exit(1);
 		}
-		return null;
 
 	}
 

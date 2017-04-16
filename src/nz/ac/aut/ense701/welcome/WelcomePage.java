@@ -6,7 +6,10 @@ import java.awt.FlowLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.IOException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -73,79 +76,121 @@ public class WelcomePage extends JFrame implements ActionListener {
 
 	}
 
+	private boolean verifyFormat(String string) {
+		String regEx = "[A-Za-z0-9-]{6,12}";
+		Pattern pattern = Pattern.compile(regEx);
+		Matcher matcher = pattern.matcher(string);
+		return matcher.matches();
+	}
+
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		// TODO Auto-generated method stub
 		Object source = arg0.getSource();
 		if (source == newPlayer) {
-			CreateNew creat;
 			String userName = null, password = null;
-			do {
-				creat = new CreateNew();
-				JOptionPane creatplayer = creat.creat;
-				userName = creat.getUserNmae();
-				password = creat.getPassword();
-			} while (userName.length() == 0 || password.length() < 6);
-			currentUser = new User(userName, password);
 
-			if (rank.addUser(currentUser) == false) {
-				JOptionPane.showMessageDialog(null, "The user is already exist", "WARNING!",
+			CreateNew creat = new CreateNew();
+			JOptionPane creatplayer = creat.creat;
+			userName = creat.getUserNmae();
+			password = creat.getPassword();
+
+			if (!verifyFormat(userName)) {
+				JOptionPane.showMessageDialog(null,
+						"The length of username must more then 6 character£¬ must be letter or number", "WARNING!",
 						JOptionPane.WARNING_MESSAGE);
+				currentUser = null;
+			} else if (!verifyFormat(password)) {
+				JOptionPane.showMessageDialog(null,
+						"The length of password must more then 6 character£¬ must be letter or number", "WARNING!",
+						JOptionPane.WARNING_MESSAGE);
+				currentUser = null;
 			} else {
-				this.setVisible(false);
-				// create the game object
-				final Game game = new Game(currentUser,false);
-				// create the GUI for the game
-				final KiwiCountUI gui = new KiwiCountUI(game);
-				// make the GUI visible
-				java.awt.EventQueue.invokeLater(new Runnable() {
-					@Override
-					public void run() {
-						gui.setVisible(true);
-					}
-				});
+				currentUser = new User(userName, password);
+			}
+
+			if (currentUser != null) {
+				if (rank.addUser(currentUser) == false) {
+					JOptionPane.showMessageDialog(null, "The user is already exist", "WARNING!",
+							JOptionPane.WARNING_MESSAGE);
+				} else {
+					this.setVisible(false);
+					// create the game object
+					final Game game = new Game(currentUser, false);
+					// create the GUI for the game
+					final KiwiCountUI gui = new KiwiCountUI(game);
+					// make the GUI visible
+					java.awt.EventQueue.invokeLater(new Runnable() {
+						@Override
+						public void run() {
+							gui.setVisible(true);
+						}
+					});
+				}
 			}
 		}
-		  if(source == login){
-                    Login login;
-                    String userName = null; 
-                    String password = null;
-                    login= new Login();
-                    JOptionPane playerLogin = login.login;
-                    userName = login.getUserNmae();
-                    password = login.getPassword();
-                    currentUser = new User(userName, password);
-                   
-                    //get infomation fromdatabase
-                    String checkName = "abc";
-                    String checkPass = "abc";
-                    boolean isSaving = false;
-                   //TODO Need to change after the saving function have been made
-                    if(rank.loadUser(currentUser)== "1"){
-                       if(isSaving){
-                           System.out.print("Login successful");
-                       }else{
-                            this.setVisible(false);
-                            final Game game = new Game(currentUser,true);
-                            final KiwiCountUI gui = new KiwiCountUI(game);
-                            java.awt.EventQueue.invokeLater(new Runnable() {
-			@Override
-				public void run() {
-				gui.setVisible(true);
+
+		if (source == login) {
+			Login login;
+			String userName = null, password = null;
+			login = new Login();
+			JOptionPane playerLogin = login.login;
+			userName = login.getUserNmae();
+			password = login.getPassword();
+			if (!verifyFormat(userName)) {
+				JOptionPane.showMessageDialog(null,
+						"The length of username must more then 6 character£¬ must be letter or number", "WARNING!",
+						JOptionPane.WARNING_MESSAGE);
+				currentUser = null;
+			} else if (!verifyFormat(password)) {
+				JOptionPane.showMessageDialog(null,
+						"The length of password must more then 6 character£¬ must be letter or number", "WARNING!",
+						JOptionPane.WARNING_MESSAGE);
+				currentUser = null;
+			} else {
+				currentUser = new User(userName, password);
+			}
+
+			if (currentUser != null) {
+				if (rank.loadUser(currentUser) == true) {
+					String fileName = "./data/" + userName;
+					File file = new File(fileName);
+					if (file.exists()) {
+						this.setVisible(false);
+						// create the game object
+						final Game game = new Game(currentUser, true);
+						// create the GUI for the game
+						final KiwiCountUI gui = new KiwiCountUI(game);
+						// make the GUI visible
+						java.awt.EventQueue.invokeLater(new Runnable() {
+							@Override
+							public void run() {
+								gui.setVisible(true);
+							}
+						});
+					} else {
+						this.setVisible(false);
+						// create the game object
+						final Game game = new Game(currentUser, false);
+						// create the GUI for the game
+						final KiwiCountUI gui = new KiwiCountUI(game);
+						// make the GUI visible
+						java.awt.EventQueue.invokeLater(new Runnable() {
+							@Override
+							public void run() {
+								gui.setVisible(true);
+							}
+						});
+					}
+
+				} else {
+					JOptionPane.showMessageDialog(null, "Username or Password is wrong", "WARNING!",
+							JOptionPane.WARNING_MESSAGE);
 				}
-			});
-                       }
-                     }
-                     if(rank.loadUser(currentUser)== "2"){
-                         	JOptionPane.showMessageDialog(null, "Plz enter the right PassWord", "WARNING!",
-						JOptionPane.WARNING_MESSAGE);
-                     }
-                     if(rank.loadUser(currentUser)== "3"){
-                         	JOptionPane.showMessageDialog(null, "Plz check the UserName", "WARNING!",
-						JOptionPane.WARNING_MESSAGE);
-                     }
-                    
-	}
+
+			}
+
+		}
 
 	}
 

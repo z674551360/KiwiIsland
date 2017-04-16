@@ -20,9 +20,9 @@ public class Tool extends Item
      * @param weight the weight of the tool
      * @param size the size of the tool
      */
-    public Tool(Position pos, String type, String name, String description, double weight, double size) 
+    public Tool(Position pos, String name, String description, double weight, double size) 
     {
-        super(pos, type, name, description, weight, size);
+        super(pos, name, description, weight, size);
         this.broken = false;
     }
     

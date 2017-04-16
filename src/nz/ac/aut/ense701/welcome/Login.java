@@ -20,14 +20,14 @@ public class Login {
 	 */
 	public Login() {
 		login = new JOptionPane();
-		userNameL = new JLabel("UserName:");
-		passwordL = new JLabel("Password:");
-		userNameIn = new JTextField(20);
+		userNameL = new JLabel("Entery UserName:");
+		passwordL = new JLabel("Entery Password:");
+		userNameIn = new JTextField(12);
 		passwordIn = new JPasswordField(12);
 		
 		login.setMessage(null);
 		login.setLayout(new FlowLayout());
-		login.setPreferredSize(new Dimension(300, 120));
+		login.setPreferredSize(new Dimension(300, 150));
 		login.add(userNameL, 0);
 		login.add(userNameIn, 1);
 		login.add(passwordL, 2);

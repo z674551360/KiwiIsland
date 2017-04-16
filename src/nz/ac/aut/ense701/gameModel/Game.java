@@ -666,7 +666,7 @@ public class Game {
 			listener.gameStateChanged();
 		}
 	}
-	
+
 	/**
 	 * Return Timer
 	 * 
@@ -675,8 +675,6 @@ public class Game {
 	public Timer getTimer() {
 		return (Timer) timer;
 	}
-		
-	
 
 	/**
 	 * Loads terrain and occupant data from a file. At this stage this method
@@ -748,56 +746,64 @@ public class Game {
 				}
 			}
 
-			// read and setup the occupants
-			int numItems = input.nextInt();
-			for (int i = 0; i < numItems; i++) {
-				String occType = input.next();
-				String occName = input.next();
-				String occDesc = input.next();
-				int occRow = input.nextInt();
-				int occCol = input.nextInt();
-				Position occPos = new Position(island, occRow, occCol);
-				Occupant occupant = null;
-
-				if (occType.equals("T")) {
-					double weight = input.nextDouble();
-					double size = input.nextDouble();
-					occupant = new Tool(occPos, occType, occName, occDesc, weight, size);
-				} else if (occType.equals("E")) {
-					double weight = input.nextDouble();
-					double size = input.nextDouble();
-					double energy = input.nextDouble();
-					occupant = new Food(occPos, occType, occName, occDesc, weight, size, energy);
-				} else if (occType.equals("H")) {
-					double impact = input.nextDouble();
-					occupant = new Hazard(occPos, occType, occName, occDesc, impact);
-				} else if (occType.equals("K")) {
-					occupant = new Kiwi(occPos, occType, occName, occDesc);
-					totalKiwis++;
-				} else if (occType.equals("P")) {
-					occupant = new Predator(occPos, occType, occName, occDesc);
-					totalPredators++;
-				} else if (occType.equals("F")) {
-					occupant = new Fauna(occPos, occType, occName, occDesc);
-				}
-				if (occupant != null)
-					island.addOccupant(occPos, occupant);
-			}
-
 			// setUpPlayer item and position;
 			String playerName = userName;
-			int playerPosRow = input.nextInt();
-			int playerPosCol = input.nextInt();
+
+			int playerPosRow = Integer.parseInt(input.next());
+			int playerPosCol = Integer.parseInt(input.next());
 			double playerMaxStamina = 100.0;
 			double playerMaxBackpackWeight = 10.0;
 			double playerMaxBackpackSize = 5.0;
 			Position pos = new Position(island, playerPosRow, playerPosCol);
 			player = new Player(pos, playerName, playerMaxStamina, playerMaxBackpackWeight, playerMaxBackpackSize);
 			island.updatePlayerPosition(player);
-			player.reduceStamina(playerMaxStamina - input.nextInt());
+			player.reduceStamina(playerMaxStamina - Double.parseDouble(input.next()));
+			// Need Read Time IN
+			timer = new Timer(Integer.parseInt(input.next()));
 
-			int playerItems = input.nextInt();
+			// read and setup the occupants
+			int numItems = Integer.parseInt(input.next());
+			int numKiwi = 10;
 			for (int i = 0; i < numItems; i++) {
+				String occType = input.next();
+				String occName = input.next();
+				String occDesc = input.next();
+				int occRow = Integer.parseInt(input.next());
+				int occCol = Integer.parseInt(input.next());
+				Position occPos = new Position(island, occRow, occCol);
+				Occupant occupant = null;
+
+				if (occType.equals("T")) {
+					double weight = input.nextDouble();
+					double size = input.nextDouble();
+					occupant = new Tool(occPos, occName, occDesc, weight, size);
+				} else if (occType.equals("E")) {
+					double weight = input.nextDouble();
+					double size = input.nextDouble();
+					double energy = input.nextDouble();
+					occupant = new Food(occPos, occName, occDesc, weight, size, energy);
+				} else if (occType.equals("H")) {
+					double impact = input.nextDouble();
+					occupant = new Hazard(occPos, occName, occDesc, impact);
+				} else if (occType.equals("K")) {
+					occupant = new Kiwi(occPos, occName, occDesc);
+					totalKiwis++;
+					numKiwi--;
+				} else if (occType.equals("P")) {
+					occupant = new Predator(occPos, occName, occDesc);
+					totalPredators++;
+				} else if (occType.equals("F")) {
+					occupant = new Fauna(occPos, occName, occDesc);
+				}
+				if (occupant != null)
+					island.addOccupant(occPos, occupant);
+			}
+			for (int i = 0; i < numKiwi; i++) {
+				this.countKiwi();
+			}
+
+			int playerItems = Integer.parseInt(input.next());
+			for (int i = 0; i < playerItems; i++) {
 				Occupant occupant = null;
 				String occType = input.next();
 				String occName = input.next();
@@ -806,21 +812,19 @@ public class Game {
 				if (occType.equals("T")) {
 					double weight = input.nextDouble();
 					double size = input.nextDouble();
-					occupant = new Tool(pos, occType, occName, occDesc, weight, size);
+					occupant = new Tool(pos, occName, occDesc, weight, size);
 				} else if (occType.equals("E")) {
 					double weight = input.nextDouble();
 					double size = input.nextDouble();
 					double energy = input.nextDouble();
-					occupant = new Food(pos, occType, occName, occDesc, weight, size, energy);
+					occupant = new Food(pos, occName, occDesc, weight, size, energy);
 				}
 				if (occupant != null)
-				player.collect((Item) occupant);
+					player.collect((Item) occupant);
 			}
 
-			//Need Read Time IN
-			timer = new Timer(0);
-
 			input.close();
+			this.notifyGameEventListeners();
 		} catch (FileNotFoundException e) {
 			System.err.println("Unable to find data file");
 		} catch (IOException e) {
@@ -933,23 +937,23 @@ public class Game {
 			if (occType.equals("T")) {
 				double weight = input.nextDouble();
 				double size = input.nextDouble();
-				occupant = new Tool(occPos, occType, occName, occDesc, weight, size);
+				occupant = new Tool(occPos, occName, occDesc, weight, size);
 			} else if (occType.equals("E")) {
 				double weight = input.nextDouble();
 				double size = input.nextDouble();
 				double energy = input.nextDouble();
-				occupant = new Food(occPos, occType, occName, occDesc, weight, size, energy);
+				occupant = new Food(occPos, occName, occDesc, weight, size, energy);
 			} else if (occType.equals("H")) {
 				double impact = input.nextDouble();
-				occupant = new Hazard(occPos, occType, occName, occDesc, impact);
+				occupant = new Hazard(occPos, occName, occDesc, impact);
 			} else if (occType.equals("K")) {
-				occupant = new Kiwi(occPos, occType, occName, occDesc);
+				occupant = new Kiwi(occPos, occName, occDesc);
 				totalKiwis++;
 			} else if (occType.equals("P")) {
-				occupant = new Predator(occPos, occType, occName, occDesc);
+				occupant = new Predator(occPos, occName, occDesc);
 				totalPredators++;
 			} else if (occType.equals("F")) {
-				occupant = new Fauna(occPos, occType, occName, occDesc);
+				occupant = new Fauna(occPos, occName, occDesc);
 			}
 			if (occupant != null)
 				island.addOccupant(occPos, occupant);

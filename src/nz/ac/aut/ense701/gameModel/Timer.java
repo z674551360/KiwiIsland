@@ -9,11 +9,7 @@ public class Timer extends Thread {
 		stop = false;
 		totalTime = time;
 	}
-
-	public void addTimeListener(TimeChangeListener timeListenner) {
-		this.timeListenner = timeListenner;
-	}
-
+	
 	public void run() {
 		while (!stop) {
 			totalTime += 1;
@@ -26,5 +22,16 @@ public class Timer extends Thread {
 			}
 		}
 	}
+
+	public void addTimeListener(TimeChangeListener timeListenner) {
+		this.timeListenner = timeListenner;
+	}
+	
+	public String getTime(){
+		return this.totalTime+"";
+		
+	}
+
+	
 
 }

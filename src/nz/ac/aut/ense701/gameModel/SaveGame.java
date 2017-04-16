@@ -50,7 +50,7 @@ public class SaveGame {
 					if (mapOccupant.length > 0) {
 						for (int m = 0; m < mapOccupant.length; m++) {
 							Occupant occupant = mapOccupant[m];
-							String occType = occupant.getType();
+							String occType = occupant.getStringRepresentation();
 							String string = occType + "," + occupant.getName() + "," + occupant.getDescription() + ","
 									+ currentP.getRow() + "," + currentP.getColumn();
 							if (occType.equals("T")) {
@@ -76,22 +76,23 @@ public class SaveGame {
 				pw.println(",");
 			}
 			
-			//Check player stamina and position
-			pw.println(playerP);
-			pw.println(player.getStaminaLevel());
+			//Check player stamina, position, and time spend
+			pw.println(playerP+",");
+			pw.println(player.getStaminaLevel()+",");
+			pw.println(game.getTimer().getTime()+",");
 			
-			pw.println(mapItems.size());
+			pw.println(mapItems.size()+",");
 			for (int i = 0; i < mapItems.size(); i++) {
 				pw.println(mapItems.get(i).toString());
 			}
 
 			//Check what item has owned
 			HashSet<Item> backpack = player.getBackpack();
-			pw.println(backpack.size());
+			pw.println(backpack.size()+",");
 			Iterator<Item> it = backpack.iterator();
 			while (it.hasNext()) {
 				Item item = it.next();
-				String itemType = item.getType();
+				String itemType = item.getStringRepresentation();
 				String string = itemType+","+item.getName()+","+item.getDescription()+","+item.getWeight()+","+item.getSize();
 				if (itemType.equals("E")) {
 					string += "," + ((Food) item).getEnergy() + ",";

@@ -20,9 +20,9 @@ public class Hazard extends Occupant {
      * @param description a more detailed description of hazard
      * @param impact on player
      */
-    public Hazard(Position position, String type, String name, String description, double impact) {
+    public Hazard(Position position, String name, String description, double impact) {
         
-        super(position, type, name, description);
+        super(position, name, description);
         this.impact = impact;
         
     }
