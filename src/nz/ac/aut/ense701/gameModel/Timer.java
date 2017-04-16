@@ -13,7 +13,12 @@ public class Timer extends Thread {
 	public void run() {
 		while (!stop) {
 			totalTime += 1;
+			try {
 			timeListenner.timeChanged(totalTime + "");
+			} catch (NullPointerException e) {
+				// TODO Auto-generated catch block
+				System.out.println("Ignore this error if you running from test");
+			}
 			try {
 				this.sleep(1000);
 			} catch (InterruptedException e) {

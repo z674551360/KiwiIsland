@@ -8,7 +8,7 @@ int Number of columns,
 
 Island 2D terrain description:
 "Number of rows" rows with a string of length "Number of columns", each line terminated with ","
-"."=Sand, "*"=Forest, "#"=Wetland, "^"=Scrub, "~"=Water
+"0"=Sand, "1"=Forest, "2"=Wetland, "3"=Scrub, "4"=Water
 
 Player details: 
 name [String], maximum stamina level [double], start position row [int], start position column [int], maximum backpack weight [double], maximum backpack size [double],

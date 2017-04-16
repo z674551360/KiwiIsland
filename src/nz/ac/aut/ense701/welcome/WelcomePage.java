@@ -30,7 +30,7 @@ public class WelcomePage extends JFrame implements ActionListener {
 	private User currentUser;
 	private final String rankFileName = "ranking";
 
-	public WelcomePage() throws ClassNotFoundException, IOException {
+	public WelcomePage() {
 		super();
 		this.setSize(400, 500);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -78,7 +78,7 @@ public class WelcomePage extends JFrame implements ActionListener {
 
 	}
 
-	private boolean verifyFormat(String string) {
+	public boolean verifyFormat(String string) {
 		String regEx = "[A-Za-z0-9-]{6,12}";
 		Pattern pattern = Pattern.compile(regEx);
 		Matcher matcher = pattern.matcher(string);
