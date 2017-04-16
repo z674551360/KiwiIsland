@@ -84,8 +84,9 @@ public class Ranking implements Serializable {
 			Class.forName("org.sqlite.JDBC");
 			Connection c = DriverManager.getConnection("jdbc:sqlite:user.db");
 			System.out.println("Opened database successfully");
-			
-			String sql = "SELECT userName, password FROM USER WHERE userName = '" + user.getUserName() + "' and password = '"+ user.getPassword() + "'";
+
+			String sql = "SELECT userName, password FROM USER WHERE userName = '" + user.getUserName()
+					+ "' and password = '" + user.getPassword() + "'";
 			stmt = c.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
 			while (rs.next()) {
@@ -112,6 +113,26 @@ public class Ranking implements Serializable {
 			// System.exit(1);
 		}
 
+	}
+
+	public void updateScore(User user, String time) {
+		try {
+			Class.forName("org.sqlite.JDBC");
+			Connection c = DriverManager.getConnection("jdbc:sqlite:user.db");
+			System.out.println("Opened database successfully");
+
+			stmt = c.createStatement();
+			String sql = "UPDATE USER set score = '"+time+"' where userName='"+user.getUserName()+"'";
+			stmt.executeUpdate(sql);
+			c.commit();
+			stmt.close();
+			c.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+			// System.err.println(e.getClass().getName() + ": " +
+			// e.getMessage());
+			// System.exit(1);
+		}
 	}
 
 }

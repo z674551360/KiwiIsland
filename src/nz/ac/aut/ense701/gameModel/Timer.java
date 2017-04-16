@@ -31,7 +31,10 @@ public class Timer extends Thread {
 		return this.totalTime+"";
 		
 	}
-
 	
+	public void resetTime(){
+		this.totalTime=0;
+		
+	}
 
 }
