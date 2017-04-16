@@ -9,8 +9,9 @@ package testForIterationOne;
 
 
 import static org.junit.Assert.*;
-import nz.ac.aut.ense701.gameModel.Ranking;
+
 import nz.ac.aut.ense701.gameModel.User;
+import nz.ac.aut.ense701.welcome.Ranking;
 import nz.ac.aut.ense701.welcome.WelcomePage;
 
 import org.junit.Test;

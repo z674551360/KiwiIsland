@@ -18,7 +18,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import nz.ac.aut.ense701.gameModel.Game;
-import nz.ac.aut.ense701.gameModel.Ranking;
 import nz.ac.aut.ense701.gameModel.User;
 import nz.ac.aut.ense701.gui.KiwiCountUI;
 

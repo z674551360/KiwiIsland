@@ -16,9 +16,9 @@ import nz.ac.aut.ense701.gameModel.Kiwi;
 import nz.ac.aut.ense701.gameModel.Occupant;
 import nz.ac.aut.ense701.gameModel.Player;
 import nz.ac.aut.ense701.gameModel.Position;
-import nz.ac.aut.ense701.gameModel.Ranking;
 import nz.ac.aut.ense701.gameModel.Tool;
 import nz.ac.aut.ense701.gameModel.User;
+import nz.ac.aut.ense701.welcome.Ranking;
 import nz.ac.aut.ense701.welcome.WelcomePage;
 
 public class MapTest extends TestCase {

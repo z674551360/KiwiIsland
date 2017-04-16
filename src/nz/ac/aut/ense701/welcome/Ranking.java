@@ -1,4 +1,4 @@
-package nz.ac.aut.ense701.gameModel;
+package nz.ac.aut.ense701.welcome;
 
 import java.io.Serializable;
 import java.sql.Connection;
@@ -8,6 +8,8 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import nz.ac.aut.ense701.gameModel.User;
 
 public class Ranking implements Serializable {
 	Connection c = null;
@@ -22,7 +24,7 @@ public class Ranking implements Serializable {
 		try {
 			Class.forName("org.sqlite.JDBC");
 			c = DriverManager.getConnection("jdbc:sqlite:user.db");
-			System.out.println("Opened database successfully");
+			//System.out.println("Opened database successfully");
 
 			stmt = c.createStatement();
 			String sql = "CREATE TABLE IF NOT EXISTS USER " + "(userName CHAR(20) PRIMARY KEY NOT NULL,"
@@ -35,7 +37,7 @@ public class Ranking implements Serializable {
 			System.exit(1);
 			// e.printStackTrace();
 		}
-		System.out.println("Table created successfully");
+		//System.out.println("Table created successfully");
 	}
 
 	public boolean addUser(User user) {
@@ -43,7 +45,7 @@ public class Ranking implements Serializable {
 		try {
 			Class.forName("org.sqlite.JDBC");
 			Connection c = DriverManager.getConnection("jdbc:sqlite:user.db");
-			System.out.println("Opened database successfully");
+			//System.out.println("Opened database successfully");
 
 			String sql = "SELECT userName FROM USER WHERE userName = '" + user.getUserName() + "'";
 			stmt = c.createStatement();
@@ -83,7 +85,7 @@ public class Ranking implements Serializable {
 		try {
 			Class.forName("org.sqlite.JDBC");
 			Connection c = DriverManager.getConnection("jdbc:sqlite:user.db");
-			System.out.println("Opened database successfully");
+			//System.out.println("Opened database successfully");
 
 			String sql = "SELECT userName, password FROM USER WHERE userName = '" + user.getUserName()
 					+ "' and password = '" + user.getPassword() + "'";
@@ -119,7 +121,7 @@ public class Ranking implements Serializable {
 		try {
 			Class.forName("org.sqlite.JDBC");
 			Connection c = DriverManager.getConnection("jdbc:sqlite:user.db");
-			System.out.println("Opened database successfully");
+			//System.out.println("Opened database successfully");
 
 			stmt = c.createStatement();
 			String sql = "UPDATE USER set score = '"+time+"' where userName='"+user.getUserName()+"'";
