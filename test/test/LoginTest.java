@@ -31,17 +31,17 @@ public class LoginTest {
     public void testloginFail() {
        User userfail=new User("textingName","textingPassword");
        User userfailpassword=new User("abc","textingPassword");
-       User userSuccesfull=new User("abc","abcabc");
+       User userSuccesfull=new User("TestTest","TestTest");
        boolean Fail1= true;
        boolean Fail2 =true;
        boolean True= false;
-       if(rank.loadUser(userfail)=="3"){
+       if(rank.loadUser(userfail)==false){
            Fail1 = false;
        }
-       if(rank.loadUser(userfailpassword)=="2"){
+       if(rank.loadUser(userfailpassword)==false){
            Fail2 =false;
        }
-       if(rank.loadUser(userSuccesfull)=="1"){
+       if(rank.loadUser(userSuccesfull)==true){
            True=true;
        }
        assertFalse("User Login fail",Fail1);

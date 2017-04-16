@@ -32,7 +32,7 @@ public class WelcomePage extends JFrame implements ActionListener {
 
 	public WelcomePage() throws ClassNotFoundException, IOException {
 		super();
-		this.setSize(400, 600);
+		this.setSize(400, 500);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setResizable(false);
 		Toolkit tk = Toolkit.getDefaultToolkit();
@@ -43,6 +43,7 @@ public class WelcomePage extends JFrame implements ActionListener {
 		this.setTitle("KiwiIland Management System");
 
 		bg = new Background();
+		bg.setPreferredSize(new Dimension(400, 500));
 		btn = new JPanel();
 		space = new JPanel();
 		BorderLayout bl = new BorderLayout();
@@ -67,7 +68,8 @@ public class WelcomePage extends JFrame implements ActionListener {
 		bg.add(btn);
 		this.add(bg);
 
-		this.setVisible(true);
+		pack();
+		setVisible(true);
 		initUserDatabase();
 	}
 
@@ -97,12 +99,12 @@ public class WelcomePage extends JFrame implements ActionListener {
 
 			if (!verifyFormat(userName)) {
 				JOptionPane.showMessageDialog(null,
-						"The length of username must more then 6 character£¬ must be letter or number", "WARNING!",
+						"The length of username must more then 6 character, must be letter or number", "WARNING!",
 						JOptionPane.WARNING_MESSAGE);
 				currentUser = null;
 			} else if (!verifyFormat(password)) {
 				JOptionPane.showMessageDialog(null,
-						"The length of password must more then 6 character£¬ must be letter or number", "WARNING!",
+						"The length of password must more then 6 character, must be letter or number", "WARNING!",
 						JOptionPane.WARNING_MESSAGE);
 				currentUser = null;
 			} else {
@@ -139,12 +141,12 @@ public class WelcomePage extends JFrame implements ActionListener {
 			password = login.getPassword();
 			if (!verifyFormat(userName)) {
 				JOptionPane.showMessageDialog(null,
-						"The length of username must more then 6 character£¬ must be letter or number", "WARNING!",
+						"The length of username must more then 6 character, must be letter or number", "WARNING!",
 						JOptionPane.WARNING_MESSAGE);
 				currentUser = null;
 			} else if (!verifyFormat(password)) {
 				JOptionPane.showMessageDialog(null,
-						"The length of password must more then 6 character£¬ must be letter or number", "WARNING!",
+						"The length of password must more then 6 character, must be letter or number", "WARNING!",
 						JOptionPane.WARNING_MESSAGE);
 				currentUser = null;
 			} else {

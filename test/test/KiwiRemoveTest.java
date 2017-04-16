@@ -36,7 +36,7 @@ public class KiwiRemoveTest extends junit.framework.TestCase {
     @Before
     @Override
         public void setUp() {    
-        game           = new Game(new User("TestAccount","TestAccount"));
+        game           = new Game(new User("TestAccount","TestAccount"),false);
         position = game.getPlayer().getPosition();
         player         = game.getPlayer();
         island = game.getIsland();   
@@ -53,7 +53,7 @@ public class KiwiRemoveTest extends junit.framework.TestCase {
     
      @Test
     public void testShowingOfKiwi() {
-        Kiwi kiwi = new Kiwi(position,"K", "Kiwi", "A little spotted kiwi");
+        Kiwi kiwi = new Kiwi(position,"Kiwi", "A little spotted kiwi");
         island.addOccupant(position, kiwi); 
         game.countKiwi();
         assertFalse("Kiwi should be not on island", island.hasOccupant(position, kiwi));

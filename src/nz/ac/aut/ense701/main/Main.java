@@ -22,17 +22,6 @@ public class Main {
 	 * @throws ClassNotFoundException 
 	 */
 	public static void main(String[] args) throws ClassNotFoundException, IOException {
-//		// create the game object
-//		final Game game = new Game();
-//		// create the GUI for the game
-//		final KiwiCountUI gui = new KiwiCountUI(game);
-//		// make the GUI visible
-//		java.awt.EventQueue.invokeLater(new Runnable() {
-//			@Override
-//			public void run() {
-//				gui.setVisible(true);
-//			}
-//		});
 		WelcomePage welcome = new WelcomePage();
 	}
 
