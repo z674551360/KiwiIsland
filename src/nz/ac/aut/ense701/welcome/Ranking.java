@@ -20,6 +20,9 @@ public class Ranking implements Serializable {
 
 	}
 
+	/**
+	 * To create user database if not exist
+	 */
 	public void creatDatabase() {
 		try {
 			Class.forName("org.sqlite.JDBC");
@@ -40,6 +43,11 @@ public class Ranking implements Serializable {
 		//System.out.println("Table created successfully");
 	}
 
+	/**
+	 * To check if user exist and add user into databse
+	 * 
+	 * @param user
+	 */
 	public boolean addUser(User user) {
 		String userName = "";
 		try {
@@ -79,6 +87,11 @@ public class Ranking implements Serializable {
 		}
 	}
 
+	/**
+	 * To check if user exist and password is right
+	 * 
+	 * @param user
+	 */
 	public boolean loadUser(User user) {
 		String userName = "";
 		String password = "";
@@ -117,6 +130,12 @@ public class Ranking implements Serializable {
 
 	}
 
+	/**
+	 * To check and update the highest score
+	 * 
+	 * @param user
+	 * @param time
+	 */
 	public void updateScore(User user, String time) {
 		try {
 			Class.forName("org.sqlite.JDBC");

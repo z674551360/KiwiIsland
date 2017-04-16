@@ -5,11 +5,18 @@ public class Timer extends Thread {
 	private int totalTime;
 	private boolean stop;
 
+	/**
+	 * The constructor of Timer and set the initial time
+	 * @param time
+	 */
 	public Timer(int time) {
 		stop = false;
 		totalTime = time;
 	}
 	
+	/**
+	 * Update the panel every second
+	 */
 	public void run() {
 		while (!stop) {
 			totalTime += 1;

@@ -22,6 +22,9 @@ public class SaveGame {
 		player = game.getPlayer();
 	}
 
+	/**
+	 * Follow the designed constructor to save the game status to TXT file
+	 */
 	public void save() {
 		try {
 			File file = new File("data");

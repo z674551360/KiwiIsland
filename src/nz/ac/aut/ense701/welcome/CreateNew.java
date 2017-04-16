@@ -51,12 +51,19 @@ public class CreateNew {
 	}
 
 	
-
+	/**
+	 * 
+	 * @return the user name
+	 */
 	public String getUserNmae() {
 		return userNameIn.getText();
 
 	}
 
+	/**
+	 * 
+	 * @return the password
+	 */
 	public String getPassword() {
 		char[] pass = passwordIn.getPassword();
 		return new String(pass);

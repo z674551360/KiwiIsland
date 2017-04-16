@@ -28,7 +28,10 @@ public class WelcomePage extends JFrame implements ActionListener {
 	private Ranking rank;
 	private User currentUser;
 	private final String rankFileName = "ranking";
-
+	
+	
+	//To create user interface of main page
+	//Need more work it to make it better
 	public WelcomePage() {
 		super();
 		this.setSize(400, 500);
@@ -77,6 +80,12 @@ public class WelcomePage extends JFrame implements ActionListener {
 
 	}
 
+	
+	/**
+	 * regular expression user to check the username and password
+	 * @param string
+	 * @return
+	 */
 	public boolean verifyFormat(String string) {
 		String regEx = "[A-Za-z0-9-]{6,12}";
 		Pattern pattern = Pattern.compile(regEx);
@@ -88,6 +97,8 @@ public class WelcomePage extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent arg0) {
 		// TODO Auto-generated method stub
 		Object source = arg0.getSource();
+		
+		// If player click creat new player button
 		if (source == newPlayer) {
 			String userName = null, password = null;
 
@@ -131,6 +142,7 @@ public class WelcomePage extends JFrame implements ActionListener {
 			}
 		}
 
+		// If user click the login button
 		if (source == login) {
 			Login login;
 			String userName = null, password = null;
