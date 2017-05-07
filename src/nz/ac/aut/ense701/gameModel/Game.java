@@ -41,6 +41,7 @@ public class Game {
 		eventListeners = new HashSet<GameEventListener>();
 		this.currentUser = user;
 		createNewGame(conti);
+		timer = new Timer(0);
 	}
 
 	/**
@@ -536,11 +537,13 @@ public class Game {
 			state = GameState.LOST;
 			message = "Sorry, you have lost the game. " + this.getLoseMessage();
 			this.setLoseMessage(message);
+			System.out.println("TEST");
 			((Timer)timer).resetTime();
 		} else if (!playerCanMove()) {
 			state = GameState.LOST;
 			message = "Sorry, you have lost the game. You do not have sufficient stamina to move.";
 			this.setLoseMessage(message);
+			System.out.println("TEST");
 			((Timer)timer).resetTime();
 		} else if (predatorsTrapped == totalPredators) {
 			state = GameState.WON;
@@ -717,7 +720,7 @@ public class Game {
 		} catch (IOException e) {
 			System.err.println("Problem encountered processing file.");
 		}
-		timer = new Timer(0);
+//		timer = new Timer(0);
 	}
 
 	/**
