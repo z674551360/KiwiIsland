@@ -2,6 +2,7 @@ package nz.ac.aut.ense701.main;
 
 import java.io.IOException;
 
+import nz.ac.aut.ense701.gameModel.BGM;
 import nz.ac.aut.ense701.gameModel.Game;
 import nz.ac.aut.ense701.gui.KiwiCountUI;
 import nz.ac.aut.ense701.welcome.WelcomePage;
@@ -23,6 +24,8 @@ public class Main {
 	 */
 	public static void main(String[] args) throws ClassNotFoundException, IOException {
 		WelcomePage welcome = new WelcomePage();
+		Thread music = new BGM();
+		music.start();
 	}
 
 }
