@@ -5,6 +5,7 @@ import java.io.Serializable;
 public class User {
 	private String userName, password, score;
 	// private ArrayList<Item> ownedItem;
+	private int kiwiCount;
 
 	public String getUserName() {
 		return userName;
@@ -28,6 +29,10 @@ public class User {
 
 	public void setScore(String score) {
 		this.score = score;
+	}
+	
+	public int getKiwiCount(){
+		return kiwiCount;
 	}
 
 	public User(String userName, String password) {

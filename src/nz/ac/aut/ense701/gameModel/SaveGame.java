@@ -83,6 +83,7 @@ public class SaveGame {
 			pw.println(playerP+",");
 			pw.println(player.getStaminaLevel()+",");
 			pw.println(game.getTimer().getTime()+",");
+			pw.println(game.getKiwiCount()+",");
 			
 			pw.println(mapItems.size()+",");
 			for (int i = 0; i < mapItems.size(); i++) {

@@ -769,7 +769,8 @@ public class Game {
 			player.reduceStamina(playerMaxStamina - Double.parseDouble(input.next()));
 			// Need Read Time IN
 			timer = new Timer(Integer.parseInt(input.next()));
-
+			// Need Read kiwiCount
+			this.kiwiCount=Integer.parseInt(input.next());
 			// read and setup the occupants
 			int numItems = Integer.parseInt(input.next());
 			int numKiwi = 10;
