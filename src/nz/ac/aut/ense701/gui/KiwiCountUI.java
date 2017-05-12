@@ -63,9 +63,11 @@ public class KiwiCountUI extends javax.swing.JFrame implements GameEventListener
 			JOptionPane.showMessageDialog(this, game.getLoseMessage(), "Game over!", JOptionPane.INFORMATION_MESSAGE);
 			game.createNewGame(false);
 			game.getTimer().resetTime();
+			this.repaint();
 		} else if (game.getState() == GameState.WON) {
 			JOptionPane.showMessageDialog(this, game.getWinMessage(), "Well Done!", JOptionPane.INFORMATION_MESSAGE);
 			game.createNewGame(false);
+			this.repaint();
 		} else if (game.messageForPlayer()) {
 			JOptionPane.showMessageDialog(this, game.getPlayerMessage(), "Important Information",
 					JOptionPane.INFORMATION_MESSAGE);
