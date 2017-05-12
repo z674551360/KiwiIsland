@@ -230,7 +230,7 @@ public class Game {
 	 * @return number remaining
 	 */
 	public int getPredatorsRemaining() {
-		return totalPredators - predatorsTrapped;
+		return this.predatorsRemaining=this.totalPredators - this.predatorsTrapped;
 	}
 
 	/**
@@ -774,6 +774,8 @@ public class Game {
 			timer = new Timer(loadTime);
 			// Need Read kiwiCount
 			this.kiwiCount=Integer.parseInt(input.next());
+			//Need read predator number
+			this.predatorsRemaining=Integer.parseInt(input.next());
 			// read and setup the occupants
 			int numItems = Integer.parseInt(input.next());
 			int numKiwi = 10;
@@ -1018,6 +1020,7 @@ public class Game {
 	private int totalPredators;
 	private int totalKiwis;
 	private int predatorsTrapped;
+	private int predatorsRemaining;
 	private Set<GameEventListener> eventListeners;
 	private Thread timer;
 

@@ -78,12 +78,12 @@ public class SaveGame {
 				pw.println(",");
 			}
 			
-			//Check player stamina, position, and time spend
+			//Check player stamina, position, and time spend,and kiwi count, and predator left
 			pw.println(playerP+",");
 			pw.println(player.getStaminaLevel()+",");
 			pw.println(game.getTimer().getTime()+",");
 			pw.println(game.getKiwiCount()+",");
-			
+			pw.println(game.getPredatorsRemaining()+",");
 			pw.println(mapItems.size()+",");
 			for (int i = 0; i < mapItems.size(); i++) {
 				pw.println(mapItems.get(i).toString());
