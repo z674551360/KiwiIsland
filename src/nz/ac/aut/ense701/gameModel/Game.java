@@ -857,9 +857,9 @@ public class Game {
 					int isExplord=Integer.parseInt(input.next());
 					if(isExplord== 0 ){
 						
-						island.setIsVisible(false, pos1);
+						island.setIsExplored(false, pos1);
 					}else{
-						island.setIsVisible(true, pos1);
+						island.setIsExplored(true, pos1);
 					}
 				}
 			}

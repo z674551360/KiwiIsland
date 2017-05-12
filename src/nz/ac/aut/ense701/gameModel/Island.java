@@ -373,7 +373,7 @@ public class Island
     //set visible data from island to gridsaure
     public void setIsVisible(boolean isVisible,Position position){
     	GridSquare result = islandGrid[position.getRow()][position.getColumn()];
-    	result.setIsExplored(isVisible);
+    	result.setIsVisible(isVisible);
     }
     
   //set Explord data from island to gridsaure

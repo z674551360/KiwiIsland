@@ -71,11 +71,7 @@ public class GridSquarePanel extends javax.swing.JPanel {
 			// Set the text of the JLabel according to the occupant
 			lblText.setText(game.getOccupantStringRepresentation(row, column));
 			// Set the colour.
-			if (squareVisible && !squareExplored) {
-				// When explored the colour is brighter
-				color = new Color(Math.min(255, color.getRed() + 128), Math.min(255, color.getGreen() + 128),
-						Math.min(255, color.getBlue() + 128));
-			}
+			
 			lblText.setBackground(color);
 			// set border colour according to
 			// whether the player is in the grid square or not
