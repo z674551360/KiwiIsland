@@ -123,7 +123,7 @@ public class SaveGame {
 				for (int n = 0; n < game.getNumColumns(); n++) {
 					Position p=new Position(island,i,n);
 					//save in the txtfile
-					if(island.isExplored(p)){
+					if(island.isVisible(p)){
 					pw.print(1+",");
 					}else{
 						pw.print(0+",");
