@@ -59,7 +59,7 @@ public class GridSquarePanel extends javax.swing.JPanel {
 		}
 		
 		if(isCurrentRow && isCurrentCol){
-			ImageIcon icon =new ImageIcon("image/master.jpg");
+			ImageIcon icon =new ImageIcon("image/master.png");
 			Image img =icon.getImage();
 			g.drawImage(img, 0, 0, this.getWidth(),this.getHeight(),null);
 			this.Isvisible=true;
