@@ -65,25 +65,25 @@ public class GridSquarePanel extends javax.swing.JPanel {
 				ImageIcon ico = new ImageIcon("image/hazard.png");
 				Image imge = ico.getImage();
 				g.drawImage(imge, 0, 0, this.getWidth(),this.getHeight(),null);
-				System.out.println(arrays[i]);
+//				System.out.println(arrays[i]);
 			}
 			if(arrays[i]=='T'){
 				ImageIcon ico = new ImageIcon("image/tool.png");
 				Image imge = ico.getImage();
 				g.drawImage(imge, 0, 0, this.getWidth(),this.getHeight(),null);
-				System.out.println(arrays[i]);
+//				System.out.println(arrays[i]);
 			}
 			if(arrays[i]=='P'){
 				ImageIcon ico = new ImageIcon("image/predator.png");
 				Image imge = ico.getImage();
 				g.drawImage(imge, 0, 0, this.getWidth(),this.getHeight(),null);
-				System.out.println(arrays[i]);
+//				System.out.println(arrays[i]);
 			}
 			if(arrays[i]=='K'){
 				ImageIcon ico = new ImageIcon("image/kiwi.png");
 				Image imge = ico.getImage();
 				g.drawImage(imge, 0, 0, this.getWidth(),this.getHeight(),null);
-				System.out.println(arrays[i]);
+//				System.out.println(arrays[i]);
 			}
 			
 		}

@@ -1,6 +1,7 @@
 package nz.ac.aut.ense701.welcome;
 
 import java.awt.BorderLayout;
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Toolkit;
@@ -11,6 +12,7 @@ import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -43,7 +45,8 @@ public class WelcomePage extends JFrame implements ActionListener {
 		this.setLocation((screenDimension.width - frameDimension.width) / 2,
 				(screenDimension.height - frameDimension.height) / 2);
 		this.setTitle("KiwiIland Management System");
-
+		
+        
 		bg = new Background();
 		bg.setPreferredSize(new Dimension(400, 500));
 		btn = new JPanel();
@@ -69,7 +72,17 @@ public class WelcomePage extends JFrame implements ActionListener {
 		// bg.add(space,BorderLayout.WEST);
 		bg.add(btn);
 		this.add(bg);
-
+		
+		ImageIcon img = new ImageIcon("image/welcome.jpg");  
+        //ÒªÉèÖÃµÄ±³¾°Í¼Æ¬  
+        JLabel imgLabel = new JLabel(img);  
+        //
+        imgLabel.setBounds(0, 0, img.getIconWidth(), img.getIconHeight());
+        //
+        this.getLayeredPane().add(imgLabel, new Integer(Integer.MIN_VALUE));
+        //
+        JPanel jp=(JPanel)this.getContentPane(); 
+        jp.setOpaque(false);
 		pack();
 		setVisible(true);
 		initUserDatabase();
