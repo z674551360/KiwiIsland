@@ -58,13 +58,44 @@ public class GridSquarePanel extends javax.swing.JPanel {
 			this.Isvisible=true;
 		}
 		
+		if(this.showOccupant){
+			char []arrays =this.lblText.getText().toCharArray();
+		for(int i =0;i <arrays.length;i++){	
+			if(arrays[i]=='H'){
+				ImageIcon ico = new ImageIcon("image/hazard.png");
+				Image imge = ico.getImage();
+				g.drawImage(imge, 0, 0, this.getWidth(),this.getHeight(),null);
+				System.out.println(arrays[i]);
+			}
+			if(arrays[i]=='T'){
+				ImageIcon ico = new ImageIcon("image/tool.png");
+				Image imge = ico.getImage();
+				g.drawImage(imge, 0, 0, this.getWidth(),this.getHeight(),null);
+				System.out.println(arrays[i]);
+			}
+			if(arrays[i]=='P'){
+				ImageIcon ico = new ImageIcon("image/predator.png");
+				Image imge = ico.getImage();
+				g.drawImage(imge, 0, 0, this.getWidth(),this.getHeight(),null);
+				System.out.println(arrays[i]);
+			}
+			if(arrays[i]=='K'){
+				ImageIcon ico = new ImageIcon("image/kiwi.png");
+				Image imge = ico.getImage();
+				g.drawImage(imge, 0, 0, this.getWidth(),this.getHeight(),null);
+				System.out.println(arrays[i]);
+			}
+			
+		}
+		}
+		
 		if(isCurrentRow && isCurrentCol){
 			ImageIcon icon =new ImageIcon("image/master.png");
 			Image img =icon.getImage();
 			g.drawImage(img, 0, 0, this.getWidth(),this.getHeight(),null);
 			this.Isvisible=true;
 		}
-		
+			
 		this.repaint();
 	}
 
@@ -114,6 +145,9 @@ public class GridSquarePanel extends javax.swing.JPanel {
 			this.imageName=type;
 			// set the visible
 			this.Isvisible=true;
+			if(squareVisible){
+				this.showOccupant=true;
+			}
 //			lblText.setBackground(color);
 			// set border colour according to
 			// whether the player is in the grid square or not
@@ -124,6 +158,7 @@ public class GridSquarePanel extends javax.swing.JPanel {
 			setBorder(normalBorder);
 			//set the visible
 			this.Isvisible=false;
+			this.showOccupant=false;
 		}
 	}
 
@@ -157,6 +192,7 @@ public class GridSquarePanel extends javax.swing.JPanel {
 	private Game game;
 	private int row, column;
 	private boolean Isvisible=false ;
+	private boolean showOccupant=false ;
 	private String imageName;
 	
 	private static final Border normalBorder = new LineBorder(Color.BLACK, 1);
