@@ -41,7 +41,6 @@ public class Game {
 		eventListeners = new HashSet<GameEventListener>();
 		this.currentUser = user;
 		createNewGame(conti);
-		timer = new Timer(0);
 	}
 
 	/**
@@ -52,6 +51,7 @@ public class Game {
 		totalKiwis = 0;
 		predatorsTrapped = 0;
 		kiwiCount = 0;
+		timer = new Timer(0);
 		if (!conti) {
 			initialiseIslandFromFile("IslandData.txt");
 		} else {
@@ -754,7 +754,7 @@ public class Game {
 					island.setTerrain(pos, terrain);
 				}
 			}
-
+			
 			// setUpPlayer item and position;
 			String playerName = userName;
 
@@ -768,7 +768,10 @@ public class Game {
 			island.updatePlayerPosition(player);
 			player.reduceStamina(playerMaxStamina - Double.parseDouble(input.next()));
 			// Need Read Time IN
-			timer = new Timer(Integer.parseInt(input.next()));
+			
+			int loadTime=Integer.parseInt(input.next());
+			System.out.println("11112231231231231231:  "+loadTime);
+			timer = new Timer(loadTime);
 			// Need Read kiwiCount
 			this.kiwiCount=Integer.parseInt(input.next());
 			// read and setup the occupants
@@ -831,6 +834,34 @@ public class Game {
 				}
 				if (occupant != null)
 					player.collect((Item) occupant);
+			}
+			
+			//setUPGrid is visable
+			for (int row = 0; row < island.getNumRows(); row++) {
+				for (int col = 0; col < island.getNumColumns(); col++) {
+					Position pos1 = new Position(island, row, col);
+					int isVisble=Integer.parseInt(input.next());
+					if(isVisble== 0 ){
+						
+						island.setIsVisible(false, pos1);
+					}else{
+						island.setIsVisible(true, pos1);
+					}
+				}
+			}
+			
+			//setUPGrid is explord
+			for (int row = 0; row < island.getNumRows(); row++) {
+				for (int col = 0; col < island.getNumColumns(); col++) {
+					Position pos1 = new Position(island, row, col);
+					int isExplord=Integer.parseInt(input.next());
+					if(isExplord== 0 ){
+						
+						island.setIsVisible(false, pos1);
+					}else{
+						island.setIsVisible(true, pos1);
+					}
+				}
 			}
 
 			input.close();

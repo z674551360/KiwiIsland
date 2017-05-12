@@ -150,7 +150,12 @@ public class GridSquare
     public void setExplored()
     {
         this.explored = true;
-    }  
+    }
+    
+    //set the isExplored data
+    public void setIsExplored(boolean IsExplored){
+    	this.explored=IsExplored;
+    }
     
     /**
      * Marks this grid square as being visible to the player.
@@ -158,6 +163,12 @@ public class GridSquare
     public void setVisible()
     {
         this.visible = true;
+    }
+    
+    //set the isVisible data
+    public void setIsVisible(boolean IsVisible)
+    {
+        this.visible = IsVisible;
     }
     
     /**
@@ -208,5 +219,6 @@ public class GridSquare
         }
         return success;
     }
+    
     
 }
