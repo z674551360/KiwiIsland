@@ -81,6 +81,7 @@ public class Island
         return square.isVisible();
     }
      
+  
     /**
      * Is this square explored
      * @param position
@@ -367,6 +368,18 @@ public class Island
             result = islandGrid[position.getRow()][position.getColumn()];
         }
         return result;
+    }
+    
+    //set visible data from island to gridsaure
+    public void setIsVisible(boolean isVisible,Position position){
+    	GridSquare result = islandGrid[position.getRow()][position.getColumn()];
+    	result.setIsVisible(isVisible);
+    }
+    
+  //set Explord data from island to gridsaure
+    public void setIsExplored(boolean isExplored,Position position){
+    	GridSquare result = islandGrid[position.getRow()][position.getColumn()];
+    	result.setIsExplored(isExplored);
     }
 
 }

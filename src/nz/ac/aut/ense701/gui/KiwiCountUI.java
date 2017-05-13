@@ -63,9 +63,11 @@ public class KiwiCountUI extends javax.swing.JFrame implements GameEventListener
 			JOptionPane.showMessageDialog(this, game.getLoseMessage(), "Game over!", JOptionPane.INFORMATION_MESSAGE);
 			game.createNewGame(false);
 			game.getTimer().resetTime();
+			this.repaint();
 		} else if (game.getState() == GameState.WON) {
 			JOptionPane.showMessageDialog(this, game.getWinMessage(), "Well Done!", JOptionPane.INFORMATION_MESSAGE);
 			game.createNewGame(false);
+			this.repaint();
 		} else if (game.messageForPlayer()) {
 			JOptionPane.showMessageDialog(this, game.getPlayerMessage(), "Important Information",
 					JOptionPane.INFORMATION_MESSAGE);
@@ -687,13 +689,13 @@ public class KiwiCountUI extends javax.swing.JFrame implements GameEventListener
 	@Override
 	public void keyPressed(KeyEvent arg0) {
 		// TODO Auto-generated method stub
-		if (arg0.getKeyCode() == KeyEvent.VK_DOWN) {
+		if (arg0.getKeyCode() ==KeyEvent.VK_S) {
 			game.playerMove(MoveDirection.SOUTH);
-		} else if (arg0.getKeyCode() == KeyEvent.VK_UP) {
+		} else if (arg0.getKeyCode() == KeyEvent.VK_W) {
 			game.playerMove(MoveDirection.NORTH);
-		} else if (arg0.getKeyCode() == KeyEvent.VK_RIGHT) {
+		} else if (arg0.getKeyCode() == KeyEvent.VK_D) {
 			game.playerMove(MoveDirection.EAST);
-		} else if (arg0.getKeyCode() == KeyEvent.VK_LEFT) {
+		} else if (arg0.getKeyCode() == KeyEvent.VK_A) {
 			game.playerMove(MoveDirection.WEST);
 		} else {
 			System.out.println(arg0.getKeyCode());

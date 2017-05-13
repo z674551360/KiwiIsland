@@ -42,7 +42,6 @@ public class SaveGame {
 					// Iterate whole map treeain
 					currentP = new Position(island, i, n);
 					pw.print(island.getTerrain(currentP).getStringRepresentation());
-
 					// Find player's position
 					if (island.hasPlayer(currentP)) {
 						playerP = currentP.getRow() + "," + currentP.getColumn();
@@ -79,11 +78,12 @@ public class SaveGame {
 				pw.println(",");
 			}
 			
-			//Check player stamina, position, and time spend
+			//Check player stamina, position, and time spend,and kiwi count, and predator left
 			pw.println(playerP+",");
 			pw.println(player.getStaminaLevel()+",");
 			pw.println(game.getTimer().getTime()+",");
-			
+			pw.println(game.getKiwiCount()+",");
+			pw.println(game.getPredatorsRemaining()+",");
 			pw.println(mapItems.size()+",");
 			for (int i = 0; i < mapItems.size(); i++) {
 				pw.println(mapItems.get(i).toString());
@@ -104,9 +104,33 @@ public class SaveGame {
 				}
 				pw.println(string);
 			}
-			
-			
-
+			//Check gridSquare is visable
+			for (int i = 0; i < game.getNumRows(); i++) {
+				for (int n = 0; n < game.getNumColumns(); n++) {
+					Position p=new Position(island,i,n);
+					//save in the txtfile
+					if(island.isVisible(p)){
+					pw.print(1+",");
+					}else{
+						pw.print(0+",");
+					}
+					
+				}
+				pw.println("");
+			}
+			//check gridSuare is Explored
+			for (int i = 0; i < game.getNumRows(); i++) {
+				for (int n = 0; n < game.getNumColumns(); n++) {
+					Position p=new Position(island,i,n);
+					//save in the txtfile
+					if(island.isExplored(p)){
+					pw.print(1+",");
+					}else{
+						pw.print(0+",");
+					}
+				}
+				pw.println("");
+			}
 
 			pw.close();
 			buffw.close();
