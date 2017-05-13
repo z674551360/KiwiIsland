@@ -657,7 +657,9 @@ public class KiwiCountUI extends javax.swing.JFrame implements GameEventListener
 
 	private void btnLoadActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton3ActionPerformed
 		// TODO add your handling code here:
-		game.load();
+		game.createNewGame(true);
+		game.getTimer().resetTime();
+		this.repaint();
 	}// GEN-LAST:event_jButton3ActionPerformed
 
 	
