@@ -29,7 +29,7 @@ import nz.ac.aut.ense701.gameModel.TimeChangeListener;
  * @version July 2011
  */
 
-public class KiwiCountUI extends javax.swing.JFrame implements GameEventListener, TimeChangeListener, KeyListener{
+public class KiwiCountUI extends javax.swing.JFrame implements GameEventListener, TimeChangeListener, KeyListener {
 
 	/**
 	 * Creates a GUI for the KiwiIsland game.
@@ -45,7 +45,7 @@ public class KiwiCountUI extends javax.swing.JFrame implements GameEventListener
 		initIslandGrid();
 		update();
 		runTimer();
-		
+
 		setFocusable(true);
 		addKeyListener(this);
 	}
@@ -62,11 +62,15 @@ public class KiwiCountUI extends javax.swing.JFrame implements GameEventListener
 		if (game.getState() == GameState.LOST) {
 			JOptionPane.showMessageDialog(this, game.getLoseMessage(), "Game over!", JOptionPane.INFORMATION_MESSAGE);
 			game.createNewGame(false);
-			game.getTimer().resetTime();
+			timeChanged("0");
+			game.getTimer().interrupted();
+
 			this.repaint();
 		} else if (game.getState() == GameState.WON) {
 			JOptionPane.showMessageDialog(this, game.getWinMessage(), "Well Done!", JOptionPane.INFORMATION_MESSAGE);
 			game.createNewGame(false);
+			timeChanged("0");
+			game.getTimer().interrupted();
 			this.repaint();
 		} else if (game.messageForPlayer()) {
 			JOptionPane.showMessageDialog(this, game.getPlayerMessage(), "Important Information",
@@ -658,11 +662,10 @@ public class KiwiCountUI extends javax.swing.JFrame implements GameEventListener
 	private void btnLoadActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton3ActionPerformed
 		// TODO add your handling code here:
 		game.createNewGame(true);
-		game.getTimer().resetTime();
+		game.getTimer().interrupted();
+		timeChanged(game.getTimer().getTime());
 		this.repaint();
 	}// GEN-LAST:event_jButton3ActionPerformed
-
-	
 
 	/**
 	 * Creates and initialises the island grid.
@@ -682,7 +685,7 @@ public class KiwiCountUI extends javax.swing.JFrame implements GameEventListener
 			}
 		}
 	}
-	
+
 	/**
 	 * Keyboard listener, let player move by keyboard
 	 * 
@@ -691,7 +694,11 @@ public class KiwiCountUI extends javax.swing.JFrame implements GameEventListener
 	@Override
 	public void keyPressed(KeyEvent arg0) {
 		// TODO Auto-generated method stub
+<<<<<<< HEAD
+		if (arg0.getKeyCode() == KeyEvent.VK_S) {
+=======
 		if (arg0.getKeyCode() ==KeyEvent.VK_DOWN) {
+>>>>>>> refs/remotes/origin/master
 			game.playerMove(MoveDirection.SOUTH);
 		} else if (arg0.getKeyCode() == KeyEvent.VK_UP) {
 			game.playerMove(MoveDirection.NORTH);
