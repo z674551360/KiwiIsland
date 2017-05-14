@@ -1009,14 +1009,7 @@ public class Game {
 		savegame.save();
 	}
 
-<<<<<<< HEAD
-//	public void load() {
-//		Game game=new Game(this.currentUser,true);
-//		
-//	}
 
-=======
->>>>>>> refs/remotes/origin/master
 	private Island island;
 	private User currentUser;
 	private Player player;
