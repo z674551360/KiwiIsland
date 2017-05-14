@@ -1,9 +1,9 @@
 package nz.ac.aut.ense701.gameModel;
 
 public class Timer extends Thread {
-	private TimeChangeListener timeListenner;
-	private int totalTime;
-	private boolean stop;
+	static private TimeChangeListener timeListenner;
+	static private int totalTime;
+	static private boolean stop;
 
 	/**
 	 * The constructor of Timer and set the initial time
@@ -18,20 +18,24 @@ public class Timer extends Thread {
 	 * Update the panel every second
 	 */
 	public void run() {
+		
 		while (!stop) {
 			totalTime += 1;
 			try {
 			timeListenner.timeChanged(totalTime + "");
-			} catch (NullPointerException e) {
-				// TODO Auto-generated catch block
-				System.out.println("Ignore this error if you running from test");
-			}
-			try {
-				this.sleep(1000);
+			this.sleep(1000);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				System.out.println("Ignore this error if you running from test");
+				return;
 			}
+//			try {
+//				this.sleep(1000);
+//			} catch (InterruptedException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//				return;
+//			}
 		}
 	}
 

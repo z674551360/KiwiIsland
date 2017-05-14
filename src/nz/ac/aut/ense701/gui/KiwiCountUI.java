@@ -62,7 +62,8 @@ public class KiwiCountUI extends javax.swing.JFrame implements GameEventListener
 		if (game.getState() == GameState.LOST) {
 			JOptionPane.showMessageDialog(this, game.getLoseMessage(), "Game over!", JOptionPane.INFORMATION_MESSAGE);
 			game.createNewGame(false);
-			game.getTimer().resetTime();
+			game.getTimer().interrupted();
+			
 			this.repaint();
 		} else if (game.getState() == GameState.WON) {
 			JOptionPane.showMessageDialog(this, game.getWinMessage(), "Well Done!", JOptionPane.INFORMATION_MESSAGE);
@@ -658,7 +659,7 @@ public class KiwiCountUI extends javax.swing.JFrame implements GameEventListener
 	private void btnLoadActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton3ActionPerformed
 		// TODO add your handling code here:
 		game.createNewGame(true);
-		game.getTimer().resetTime();
+
 		this.repaint();
 	}// GEN-LAST:event_jButton3ActionPerformed
 

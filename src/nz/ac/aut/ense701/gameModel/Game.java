@@ -38,6 +38,7 @@ public class Game {
 	 * A new instance of Kiwi island that reads data from "IslandData.txt".
 	 */
 	public Game(User user, Boolean conti) {
+		
 		eventListeners = new HashSet<GameEventListener>();
 		this.currentUser = user;
 		createNewGame(conti);
@@ -1008,10 +1009,10 @@ public class Game {
 		savegame.save();
 	}
 
-	public void load() {
-		Game game=new Game(this.currentUser,true);
-		
-	}
+//	public void load() {
+//		Game game=new Game(this.currentUser,true);
+//		
+//	}
 
 	private Island island;
 	private User currentUser;
@@ -1023,7 +1024,7 @@ public class Game {
 	private int predatorsTrapped;
 	private int predatorsRemaining;
 	private Set<GameEventListener> eventListeners;
-	private Thread timer;
+	private Thread timer=new Timer(0);
 
 	private final double MIN_REQUIRED_CATCH = 0.8;
 
