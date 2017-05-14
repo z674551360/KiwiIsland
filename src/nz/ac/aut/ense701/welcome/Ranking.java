@@ -33,7 +33,7 @@ public class Ranking implements Serializable {
 
 			stmt = c.createStatement();
 			String sql = "CREATE TABLE IF NOT EXISTS USER " + "(userName CHAR(20) PRIMARY KEY NOT NULL,"
-					+ " password CHAR(12) NOT NULL," + " score CHAR(10) NOT NULL)";
+					+ " password CHAR(128) NOT NULL," + " score CHAR(10) NOT NULL)";
 			stmt.executeUpdate(sql);
 			stmt.close();
 			c.close();
@@ -70,7 +70,7 @@ public class Ranking implements Serializable {
 				return false;
 			} else {
 				sql = "INSERT INTO USER (userName, password, score)" + "VALUES ('" + user.getUserName() + "', '"
-						+ user.getPassword() + "', '999999')";
+						+ user.getPassword().hashCode() + "', '999999')";
 				stmt = c.createStatement();
 				stmt.executeUpdate(sql);
 				rs.close();
@@ -104,22 +104,25 @@ public class Ranking implements Serializable {
 			// System.out.println("Opened database successfully");
 
 			String sql = "SELECT userName, password, score FROM USER WHERE userName = '" + user.getUserName()
-					+ "' and password = '" + user.getPassword() + "'";
+					+ "' and password = '" + user.getPassword().hashCode() + "'";
 			stmt = c.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
 			while (rs.next()) {
 				userName += rs.getString("userName");
 				password += rs.getString("password");
 				score += rs.getString("score");
+				System.out.println(password);
+				System.out.println(user.getPassword().hashCode());
 			}
-			if (userName.equals(user.getUserName()) && password.equals(user.getPassword())) {
-
+			if (userName.equals(user.getUserName()) && password.equals(user.getPassword().hashCode()+"")) {
+				System.out.println("True");
 				user.setScore(score);
 				rs.close();
 				stmt.close();
 				c.close();
 				return true;
 			} else {
+				System.out.println(password.equals(user.getPassword().hashCode()));
 				rs.close();
 				stmt.close();
 				c.close();
