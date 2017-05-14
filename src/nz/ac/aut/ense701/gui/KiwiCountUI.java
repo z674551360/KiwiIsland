@@ -694,11 +694,7 @@ public class KiwiCountUI extends javax.swing.JFrame implements GameEventListener
 	@Override
 	public void keyPressed(KeyEvent arg0) {
 		// TODO Auto-generated method stub
-<<<<<<< HEAD
-		if (arg0.getKeyCode() == KeyEvent.VK_S) {
-=======
 		if (arg0.getKeyCode() ==KeyEvent.VK_DOWN) {
->>>>>>> refs/remotes/origin/master
 			game.playerMove(MoveDirection.SOUTH);
 		} else if (arg0.getKeyCode() == KeyEvent.VK_UP) {
 			game.playerMove(MoveDirection.NORTH);
