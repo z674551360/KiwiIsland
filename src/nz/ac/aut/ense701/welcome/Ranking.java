@@ -162,9 +162,39 @@ public class Ranking implements Serializable {
 				// System.exit(1);
 			}
 			JOptionPane.showMessageDialog(null, "Highest score updated!", "Win!", JOptionPane.WARNING_MESSAGE);
-		}else{
-			JOptionPane.showMessageDialog(null, "Good job, but not the best score", "Win!", JOptionPane.WARNING_MESSAGE);
+		} else {
+			JOptionPane.showMessageDialog(null, "Good job, but not the best score", "Win!",
+					JOptionPane.WARNING_MESSAGE);
 		}
+	}
+
+	public ArrayList<String[]> getScoreboard() {
+		ArrayList<String[]> scoreList = new ArrayList<String[]>();
+		String[] score;
+		try {
+			Class.forName("org.sqlite.JDBC");
+			Connection c = DriverManager.getConnection("jdbc:sqlite:user.db");
+			// System.out.println("Opened database successfully");
+			String sql = "select userName, score from USER order by score limit 0,10 ";
+			stmt = c.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+			while (rs.next()) {
+				score = new String[] { rs.getString("userName"), rs.getString("score") };
+				scoreList.add(score);
+			}
+			rs.close();
+			stmt.close();
+			c.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			// System.err.println(e.getClass().getName() + ": " +
+			// e.getMessage());
+			return null;
+			// System.exit(1);
+		}
+		return scoreList;
+
 	}
 
 }

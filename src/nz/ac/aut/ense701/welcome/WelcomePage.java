@@ -1,14 +1,12 @@
 package nz.ac.aut.ense701.welcome;
 
 import java.awt.BorderLayout;
-import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -216,6 +214,10 @@ public class WelcomePage extends JFrame implements ActionListener {
 
 			}
 
+		}
+		if (source == ranking) {
+			RankingBoard rankingBoard = new RankingBoard(rank);
+			JOptionPane loginplayer = rankingBoard.board;
 		}
 
 	}
