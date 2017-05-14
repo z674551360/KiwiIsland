@@ -1009,7 +1009,8 @@ public class Game {
 	}
 
 	public void load() {
-
+		Game game=new Game(this.currentUser,true);
+		
 	}
 
 	private Island island;
