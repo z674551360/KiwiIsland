@@ -38,7 +38,7 @@ public class Game {
 	 * A new instance of Kiwi island that reads data from "IslandData.txt".
 	 */
 	public Game(User user, Boolean conti) {
-		
+
 		eventListeners = new HashSet<GameEventListener>();
 		this.currentUser = user;
 		createNewGame(conti);
@@ -231,7 +231,7 @@ public class Game {
 	 * @return number remaining
 	 */
 	public int getPredatorsRemaining() {
-		return this.predatorsRemaining=this.totalPredators - this.predatorsTrapped;
+		return this.predatorsRemaining = this.totalPredators - this.predatorsTrapped;
 	}
 
 	/**
@@ -539,24 +539,24 @@ public class Game {
 			message = "Sorry, you have lost the game. " + this.getLoseMessage();
 			this.setLoseMessage(message);
 			System.out.println("TEST");
-			((Timer)timer).resetTime();
+			((Timer) timer).resetTime();
 		} else if (!playerCanMove()) {
 			state = GameState.LOST;
 			message = "Sorry, you have lost the game. You do not have sufficient stamina to move.";
 			this.setLoseMessage(message);
 			System.out.println("TEST");
-			((Timer)timer).resetTime();
+			((Timer) timer).resetTime();
 		} else if (predatorsTrapped == totalPredators) {
 			state = GameState.WON;
 			message = "You win! You have done an excellent job and trapped all the predators.";
 			this.setWinMessage(message);
-			new Ranking().updateScore(currentUser, ((Timer)timer).getTime());
+			new Ranking().updateScore(currentUser, ((Timer) timer).getTime());
 		} else if (kiwiCount == totalKiwis) {
 			if (predatorsTrapped >= totalPredators * MIN_REQUIRED_CATCH) {
 				state = GameState.WON;
 				message = "You win! You have counted all the kiwi and trapped at least 80% of the predators.";
 				this.setWinMessage(message);
-				new Ranking().updateScore(currentUser, ((Timer)timer).getTime());
+				new Ranking().updateScore(currentUser, ((Timer) timer).getTime());
 			}
 		}
 		// notify listeners about changes
@@ -721,7 +721,7 @@ public class Game {
 		} catch (IOException e) {
 			System.err.println("Problem encountered processing file.");
 		}
-//		timer = new Timer(0);
+		// timer = new Timer(0);
 	}
 
 	/**
@@ -755,7 +755,7 @@ public class Game {
 					island.setTerrain(pos, terrain);
 				}
 			}
-			
+
 			// setUpPlayer item and position;
 			String playerName = userName;
 
@@ -769,14 +769,14 @@ public class Game {
 			island.updatePlayerPosition(player);
 			player.reduceStamina(playerMaxStamina - Double.parseDouble(input.next()));
 			// Need Read Time IN
-			
-			int loadTime=Integer.parseInt(input.next());
-			System.out.println("11112231231231231231:  "+loadTime);
+
+			int loadTime = Integer.parseInt(input.next());
+			System.out.println("11112231231231231231:  " + loadTime);
 			timer = new Timer(loadTime);
 			// Need Read kiwiCount
-			this.kiwiCount=Integer.parseInt(input.next());
-			//Need read predator number
-			this.predatorsRemaining=Integer.parseInt(input.next());
+			this.kiwiCount = Integer.parseInt(input.next());
+			// Need read predator number
+			this.predatorsRemaining = Integer.parseInt(input.next());
 			// read and setup the occupants
 			int numItems = Integer.parseInt(input.next());
 			int numKiwi = 10;
@@ -838,30 +838,30 @@ public class Game {
 				if (occupant != null)
 					player.collect((Item) occupant);
 			}
-			
-			//setUPGrid is visable
+
+			// setUPGrid is visable
 			for (int row = 0; row < island.getNumRows(); row++) {
 				for (int col = 0; col < island.getNumColumns(); col++) {
 					Position pos1 = new Position(island, row, col);
-					int isVisble=Integer.parseInt(input.next());
-					if(isVisble== 0 ){
-						
+					int isVisble = Integer.parseInt(input.next());
+					if (isVisble == 0) {
+
 						island.setIsVisible(false, pos1);
-					}else{
+					} else {
 						island.setIsVisible(true, pos1);
 					}
 				}
 			}
-			
-			//setUPGrid is explord
+
+			// setUPGrid is explord
 			for (int row = 0; row < island.getNumRows(); row++) {
 				for (int col = 0; col < island.getNumColumns(); col++) {
 					Position pos1 = new Position(island, row, col);
-					int isExplord=Integer.parseInt(input.next());
-					if(isExplord== 0 ){
-						
+					int isExplord = Integer.parseInt(input.next());
+					if (isExplord == 0) {
+
 						island.setIsExplored(false, pos1);
-					}else{
+					} else {
 						island.setIsExplored(true, pos1);
 					}
 				}
@@ -921,26 +921,22 @@ public class Game {
 		int numItems = input.nextInt();
 
 		/**
-		 * This ArrayList use to avoid the conflict that Kiwi and Hazard should
-		 * use a single space, not share with others and all occupant should not
-		 * been placed twice at same place
-		 *
-		 * usedPos is use to store position that avoid repetition posList is use
-		 * to store all used position so Kiwi and Hazard will use other position
-		 *
+		 * This ArrayList use to avoid the conflict that all occupant should use
+		 * a single space in map to avoid item overlay
+		 * 
 		 * The Island Data has been modified that will initial Kiwi and Hazard
-		 * at last
+		 * at last not trap the player at the beginning
 		 */
 		ArrayList<String> usedPos = new ArrayList<String>();
-		ArrayList<String> posList = new ArrayList<String>();
+		// ArrayList<String> posList = new ArrayList<String>();
 		/*
 		 * Make sure that these place can not have Hazard, so the game won't end
 		 * at beginning, LOL!!!
 		 */
-		posList.add("01");
-		posList.add("02");
-		posList.add("03");
-		posList.add("12");
+		usedPos.add("01");
+		usedPos.add("02");
+		usedPos.add("03");
+		usedPos.add("12");
 
 		for (int i = 0; i < numItems; i++) {
 			/**
@@ -951,31 +947,16 @@ public class Game {
 			String occType = input.next();
 			if (!preType.equals(occType)) {
 				preType = occType;
-				usedPos.clear();
 			}
 			String occName = input.next();
 			String occDesc = input.next();
-			int occRow, occCol;
-			/**
-			 * avoid repetition that place same type at same place
-			 */
+			int occRow = 0, occCol = 0;
 			do {
 				occRow = (int) (Math.random() * 9);
 				occCol = (int) (Math.random() * 9);
 			} while (usedPos.contains(occRow + "" + occCol));
-			/*
-			 * avoid the conflict that Kiwi and Hazard should use a single
-			 * space, not share with others
-			 */
-			if (occType.equals("H") || occType.equals("K")) {
-				do {
-					occRow = (int) (Math.random() * 9);
-					occCol = (int) (Math.random() * 9);
-				} while (usedPos.contains(occRow + "" + occCol) || posList.contains(occRow + "" + occCol));
-			}
-			usedPos.add(occRow + "" + occCol);
-			posList.add(occRow + "" + occCol);
 			Position occPos = new Position(island, occRow, occCol);
+			usedPos.add(occRow + "" + occCol);
 			Occupant occupant = null;
 
 			if (occType.equals("T")) {
@@ -999,8 +980,9 @@ public class Game {
 			} else if (occType.equals("F")) {
 				occupant = new Fauna(occPos, occName, occDesc);
 			}
-			if (occupant != null)
+			if (occupant != null) {
 				island.addOccupant(occPos, occupant);
+			}
 		}
 	}
 
@@ -1019,7 +1001,7 @@ public class Game {
 	private int predatorsTrapped;
 	private int predatorsRemaining;
 	private Set<GameEventListener> eventListeners;
-	private Thread timer=new Timer(0);
+	private Thread timer = new Timer(0);
 
 	private final double MIN_REQUIRED_CATCH = 0.8;
 
