@@ -17,13 +17,13 @@ public class Background extends JPanel {
 	
 	public Background() {
 		// Loads the background image and stores in img object.
-		//this.bg = Toolkit.getDefaultToolkit().createImage("bg.jpg");
+		this.bg = Toolkit.getDefaultToolkit().createImage("bg.jpg");
 	}
 
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		//g.drawImage(this.bg, 0, 0, this.getWidth(), this.getHeight(), null);
+		g.drawImage(this.bg, 0, 0, this.getWidth(), this.getHeight(), null);
 
 	}
 }

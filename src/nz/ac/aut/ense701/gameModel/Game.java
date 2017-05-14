@@ -1008,11 +1008,6 @@ public class Game {
 		savegame.save();
 	}
 
-	public void load() {
-		Game game=new Game(this.currentUser,true);
-		
-	}
-
 	private Island island;
 	private User currentUser;
 	private Player player;
