@@ -111,18 +111,14 @@ public class Ranking implements Serializable {
 				userName += rs.getString("userName");
 				password += rs.getString("password");
 				score += rs.getString("score");
-				System.out.println(password);
-				System.out.println(user.getPassword().hashCode());
 			}
 			if (userName.equals(user.getUserName()) && password.equals(user.getPassword().hashCode()+"")) {
-				System.out.println("True");
 				user.setScore(score);
 				rs.close();
 				stmt.close();
 				c.close();
 				return true;
 			} else {
-				System.out.println(password.equals(user.getPassword().hashCode()));
 				rs.close();
 				stmt.close();
 				c.close();
