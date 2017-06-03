@@ -4,9 +4,13 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridLayout;
+import java.awt.KeyEventDispatcher;
+import java.awt.KeyboardFocusManager;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -29,7 +33,7 @@ import nz.ac.aut.ense701.gameModel.TimeChangeListener;
  * @version July 2011
  */
 
-public class KiwiCountUI extends javax.swing.JFrame implements GameEventListener, TimeChangeListener, KeyListener {
+public class KiwiCountUI extends javax.swing.JFrame implements GameEventListener, TimeChangeListener, KeyListener,KeyEventDispatcher,MouseListener {
 
 	/**
 	 * Creates a GUI for the KiwiIsland game.
@@ -46,8 +50,11 @@ public class KiwiCountUI extends javax.swing.JFrame implements GameEventListener
 		update();
 		runTimer();
 
-		setFocusable(true);
+		
 		addKeyListener(this);
+		setFocusable(true);
+
+
 	}
 
 	/**
@@ -337,6 +344,7 @@ public class KiwiCountUI extends javax.swing.JFrame implements GameEventListener
 		btnLoad.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				btnLoadActionPerformed(evt);
+				
 			}
 		});
 		gridBagConstraints = new java.awt.GridBagConstraints();
@@ -605,27 +613,39 @@ public class KiwiCountUI extends javax.swing.JFrame implements GameEventListener
 
 	private void btnMoveEastActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnMoveEastActionPerformed
 		game.playerMove(MoveDirection.EAST);
+		 setFocusable(true);
+		  requestFocusInWindow();
 	}// GEN-LAST:event_btnMoveEastActionPerformed
 
 	private void btnMoveNorthActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnMoveNorthActionPerformed
 		game.playerMove(MoveDirection.NORTH);
+		 setFocusable(true);
+		  requestFocusInWindow();
 	}// GEN-LAST:event_btnMoveNorthActionPerformed
 
 	private void btnMoveSouthActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnMoveSouthActionPerformed
 		game.playerMove(MoveDirection.SOUTH);
+		 setFocusable(true);
+		  requestFocusInWindow();
 	}// GEN-LAST:event_btnMoveSouthActionPerformed
 
 	private void btnMoveWestActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnMoveWestActionPerformed
 		game.playerMove(MoveDirection.WEST);
+		 setFocusable(true);
+		  requestFocusInWindow();
 	}// GEN-LAST:event_btnMoveWestActionPerformed
 
 	private void btnCollectActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnCollectActionPerformed
 		Object obj = listObjects.getSelectedValue();
 		game.collectItem(obj);
+		 setFocusable(true);
+		  requestFocusInWindow();
 	}// GEN-LAST:event_btnCollectActionPerformed
 
 	private void btnDropActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnDropActionPerformed
 		game.dropItem(listInventory.getSelectedValue());
+		 setFocusable(true);
+		  requestFocusInWindow();
 	}// GEN-LAST:event_btnDropActionPerformed
 
 	private void listObjectsValueChanged(javax.swing.event.ListSelectionEvent evt) {// GEN-FIRST:event_listObjectsValueChanged
@@ -634,11 +654,15 @@ public class KiwiCountUI extends javax.swing.JFrame implements GameEventListener
 			btnCollect.setEnabled(game.canCollect(occ));
 			btnCount.setEnabled(game.canCount(occ));
 			listObjects.setToolTipText(game.getOccupantDescription(occ));
+			 setFocusable(true);
+			  requestFocusInWindow();
 		}
 	}// GEN-LAST:event_listObjectsValueChanged
 
 	private void btnUseActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnUseActionPerformed
 		game.useItem(listInventory.getSelectedValue());
+		 setFocusable(true);
+		  requestFocusInWindow();
 	}// GEN-LAST:event_btnUseActionPerformed
 
 	private void listInventoryValueChanged(javax.swing.event.ListSelectionEvent evt) {// GEN-FIRST:event_listInventoryValueChanged
@@ -648,15 +672,21 @@ public class KiwiCountUI extends javax.swing.JFrame implements GameEventListener
 			btnUse.setEnabled(game.canUse(item));
 			listInventory.setToolTipText(game.getOccupantDescription(item));
 		}
+		 setFocusable(true);
+		  requestFocusInWindow();
 	}// GEN-LAST:event_listInventoryValueChanged
 
 	private void btnCountActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnCountActionPerformed
 		game.countKiwi();
+		 setFocusable(true);
+		  requestFocusInWindow();
 	}// GEN-LAST:event_btnCountActionPerformed
 
 	private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton2ActionPerformed
 		// TODO add your handling code here:
 		game.save();
+		 setFocusable(true);
+		  requestFocusInWindow();
 	}// GEN-LAST:event_jButton2ActionPerformed
 
 	private void btnLoadActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton3ActionPerformed
@@ -665,6 +695,8 @@ public class KiwiCountUI extends javax.swing.JFrame implements GameEventListener
 		game.getTimer().interrupted();
 		timeChanged(game.getTimer().getTime());
 		this.repaint();
+		 setFocusable(true);
+		  requestFocusInWindow();
 	}// GEN-LAST:event_jButton3ActionPerformed
 
 	/**
@@ -686,6 +718,7 @@ public class KiwiCountUI extends javax.swing.JFrame implements GameEventListener
 		}
 	}
 
+	
 	/**
 	 * Keyboard listener, let player move by keyboard
 	 * 
@@ -694,6 +727,7 @@ public class KiwiCountUI extends javax.swing.JFrame implements GameEventListener
 	@Override
 	public void keyPressed(KeyEvent arg0) {
 		// TODO Auto-generated method stub
+		setFocusable(true);
 		if (arg0.getKeyCode() ==KeyEvent.VK_DOWN) {
 			game.playerMove(MoveDirection.SOUTH);
 		} else if (arg0.getKeyCode() == KeyEvent.VK_UP) {
@@ -705,18 +739,27 @@ public class KiwiCountUI extends javax.swing.JFrame implements GameEventListener
 		} else {
 			System.out.println(arg0.getKeyCode());
 		}
+		requestFocusInWindow();
 	}
+	
 
 	@Override
 	public void keyReleased(KeyEvent arg0) {
 		// TODO Auto-generated method stub
-
+		 setFocusable(true);
+		  requestFocusInWindow();
 	}
 
 	@Override
 	public void keyTyped(KeyEvent arg0) {
 		// TODO Auto-generated method stub
+		 setFocusable(true);
+		  requestFocusInWindow();
 	}
+	
+
+	    
+	    
 
 	// Variables declaration - do not modify//GEN-BEGIN:variables
 	private javax.swing.JButton btnCollect;
@@ -746,5 +789,45 @@ public class KiwiCountUI extends javax.swing.JFrame implements GameEventListener
 	// End of variables declaration//GEN-END:variables
 
 	private Game game;
+	@Override
+	public boolean dispatchKeyEvent(KeyEvent e) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+		 setFocusable(true);
+		  requestFocusInWindow();
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		 setFocusable(true);
+		 requestFocusInWindow();
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		 setFocusable(true);
+		 requestFocusInWindow();
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		setFocusable(true);
+		requestFocusInWindow();
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		setFocusable(true);
+		 requestFocusInWindow();
+	}
 
 }
