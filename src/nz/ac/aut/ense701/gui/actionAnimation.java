@@ -8,6 +8,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.URL;
 
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
@@ -80,14 +81,14 @@ actionAnimation.setVisible(false);
     }  
     
     public int getHeight() throws FileNotFoundException, IOException{
-    	BufferedImage bimg1 = ImageIO.read(new File(".\\image\\gif.gif"));
+    	BufferedImage bimg1 = ImageIO.read(new File("image/gif.gif"));
 
     	return bimg1.getHeight();
         
     }
     
     public int getWidth() throws FileNotFoundException, IOException{
-    	BufferedImage bimg = ImageIO.read(new File(".\\image\\gif.gif"));
+    	BufferedImage bimg = ImageIO.read(new File("image/gif.gif"));
         return bimg.getWidth();
     }
 
@@ -95,7 +96,7 @@ actionAnimation.setVisible(false);
   
     public actionAnimation() throws FileNotFoundException, IOException {  
         
-    	image = Toolkit.getDefaultToolkit().createImage(actionAnimation.class.getResource("/gif.gif")); 
+    	image = Toolkit.getDefaultToolkit().createImage("image/gif.gif"); 
         jg = new JDialog();  
         jg.setSize(getWidth(),getHeight());  
         jg.setLayout(new BorderLayout());  
