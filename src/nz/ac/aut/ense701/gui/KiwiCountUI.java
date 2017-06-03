@@ -11,6 +11,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -502,7 +504,12 @@ public class KiwiCountUI extends javax.swing.JFrame implements GameEventListener
 		btnUse.setText("Use");
 		btnUse.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				btnUseActionPerformed(evt);
+				try {
+					btnUseActionPerformed(evt);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		});
 		gridBagConstraints = new java.awt.GridBagConstraints();
@@ -659,7 +666,7 @@ public class KiwiCountUI extends javax.swing.JFrame implements GameEventListener
 		}
 	}// GEN-LAST:event_listObjectsValueChanged
 
-	private void btnUseActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnUseActionPerformed
+	private void btnUseActionPerformed(java.awt.event.ActionEvent evt) throws FileNotFoundException, IOException {// GEN-FIRST:event_btnUseActionPerformed
 		game.useItem(listInventory.getSelectedValue());
 		 setFocusable(true);
 		  requestFocusInWindow();

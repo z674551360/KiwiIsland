@@ -14,6 +14,7 @@ import java.util.Locale;
 import java.util.Scanner;
 import java.util.Set;
 
+import nz.ac.aut.ense701.gui.actionAnimation;
 import nz.ac.aut.ense701.welcome.Ranking;
 
 /**
@@ -430,8 +431,10 @@ public class Game {
 	 * @param item
 	 *            to use
 	 * @return true if the item has been used, false if not
+	 * @throws IOException 
+	 * @throws FileNotFoundException 
 	 */
-	public boolean useItem(Object item) {
+	public boolean useItem(Object item) throws FileNotFoundException, IOException {
 		boolean success = false;
 		if (item instanceof Food && player.hasItem((Food) item))
 		// Player east food to increase stamina
@@ -447,6 +450,8 @@ public class Game {
 			Tool tool = (Tool) item;
 			if (tool.isTrap() && !tool.isBroken()) {
 				success = trapPredator();
+				actionAnimation L= new actionAnimation();
+		    	L.getInstance(true);
 			} else if (tool.isScrewdriver())// Use screwdriver (to fix trap)
 			{
 				if (player.hasTrap()) {
