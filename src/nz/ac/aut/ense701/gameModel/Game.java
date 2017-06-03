@@ -430,8 +430,9 @@ public class Game {
 	 * @param item
 	 *            to use
 	 * @return true if the item has been used, false if not
+	 * @throws FileNotFoundException 
 	 */
-	public boolean useItem(Object item) {
+	public boolean useItem(Object item){
 		boolean success = false;
 		if (item instanceof Food && player.hasItem((Food) item))
 		// Player east food to increase stamina
@@ -461,6 +462,7 @@ public class Game {
 
 	/**
 	 * Count any kiwis in this position
+	 * @throws FileNotFoundException 
 	 */
 	public void countKiwi() {
 		// check if there are any kiwis here
@@ -483,6 +485,7 @@ public class Game {
 	 * @param direction
 	 *            the direction to move
 	 * @return true if the move was successful, false if it was an invalid move
+	 * @throws FileNotFoundException 
 	 */
 	public boolean playerMove(MoveDirection direction) {
 		// what terrain is the player moving on currently
@@ -531,21 +534,32 @@ public class Game {
 	/**
 	 * Used after player actions to update game state. Applies the Win/Lose
 	 * rules.
+	 * @throws FileNotFoundException 
 	 */
-	private void updateGameState() {
+	private void updateGameState(){
 		String message = "";
 		if (!player.isAlive()) {
-			state = GameState.LOST;
-			message = "Sorry, you have lost the game. " + this.getLoseMessage();
-			this.setLoseMessage(message);
-			System.out.println("TEST");
-			((Timer) timer).resetTime();
+			if(new Rebirth().RandomQuestion()){
+				player.increaseStamina(player.getMaximumStaminaLevel()/2);
+			}else{
+				state = GameState.LOST;
+				message = "Sorry, you have lost the game. " + this.getLoseMessage();
+				this.setLoseMessage(message);
+				System.out.println("TEST");
+				((Timer) timer).resetTime();
+			}
 		} else if (!playerCanMove()) {
-			state = GameState.LOST;
-			message = "Sorry, you have lost the game. You do not have sufficient stamina to move.";
-			this.setLoseMessage(message);
-			System.out.println("TEST");
-			((Timer) timer).resetTime();
+			if (!player.isAlive()) {
+				if(new Rebirth().RandomQuestion()){
+					player.increaseStamina(player.getMaximumStaminaLevel()/2);
+				}else{
+					state = GameState.LOST;
+					message = "Sorry, you have lost the game. You do not have sufficient stamina to move.";
+					this.setLoseMessage(message);
+					System.out.println("TEST");
+					((Timer) timer).resetTime();
+				}
+			}
 		} else if (predatorsTrapped == totalPredators) {
 			state = GameState.WON;
 			message = "You win! You have done an excellent job and trapped all the predators.";
