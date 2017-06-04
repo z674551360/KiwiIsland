@@ -18,6 +18,7 @@ public class Rebirth {
 	private ArrayList<Question> questions;
 	private int failCount;
 	private int successCount;
+
 	
 	public Rebirth(){
 		questions = new ArrayList<Question>();
@@ -48,7 +49,7 @@ public class Rebirth {
 		failCount=0;
 		successCount=0;
 		while(failCount<4 && (failCount+successCount)<10){
-			int randomNum = new Random().nextInt(questions.size()-1);
+			int randomNum = new Random().nextInt(getQuestionSize()-1);
 			Question question = questions.get(randomNum);
 			questions.remove(randomNum);
 			JOptionPane answering = new JOptionPane();
@@ -91,5 +92,9 @@ public class Rebirth {
 		}else{
 			return false;
 		}
+	}
+	
+	public int getQuestionSize() {
+		return questions.size();
 	}
 }

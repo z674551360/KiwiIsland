@@ -1,20 +1,16 @@
 package nz.ac.aut.ense701.gameModel;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
+
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Locale;
 import java.util.Scanner;
 import java.util.Set;
 
-import nz.ac.aut.ense701.gui.actionAnimation;
+import nz.ac.aut.ense701.gui.ActionAnimation;
 import nz.ac.aut.ense701.welcome.Ranking;
 
 /**
@@ -450,14 +446,9 @@ public class Game {
 			Tool tool = (Tool) item;
 			if (tool.isTrap() && !tool.isBroken()) {
 				success = trapPredator();
-				actionAnimation L = null;
 				try {
-					L = new actionAnimation();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				try {
+					L = new ActionAnimation();
+					L.setRunning(true);
 					L.getInstance(true);
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
@@ -562,14 +553,12 @@ public class Game {
 				state = GameState.LOST;
 				message = "Sorry, you have lost the game. " + this.getLoseMessage();
 				this.setLoseMessage(message);
-				System.out.println("TEST");
 				((Timer) timer).resetTime();
 			}
 		} else if (!playerCanMove()) {
 			if (new Rebirth().RandomQuestion()) {
 				player.increaseStamina(player.getMaximumStaminaLevel() / 2);
 			} else {
-				state = GameState.LOST;
 				message = "Sorry, you have lost the game. You do not have sufficient stamina to move.";
 				this.setLoseMessage(message);
 				System.out.println("TEST");
@@ -1020,6 +1009,12 @@ public class Game {
 		SaveGame savegame = new SaveGame(this);
 		savegame.save();
 	}
+	
+	public ActionAnimation getActionAnimation(){
+		return L;
+	}
+	
+
 
 	private Island island;
 	private User currentUser;
@@ -1032,6 +1027,7 @@ public class Game {
 	private int predatorsRemaining;
 	private Set<GameEventListener> eventListeners;
 	private Thread timer = new Timer(0);
+	private ActionAnimation L;
 
 	private final double MIN_REQUIRED_CATCH = 0.8;
 
