@@ -562,7 +562,6 @@ public class Game {
 				state = GameState.LOST;
 				message = "Sorry, you have lost the game. " + this.getLoseMessage();
 				this.setLoseMessage(message);
-				System.out.println("TEST");
 				((Timer) timer).resetTime();
 			}
 		} else if (!playerCanMove()) {
@@ -572,7 +571,6 @@ public class Game {
 				state = GameState.LOST;
 				message = "Sorry, you have lost the game. You do not have sufficient stamina to move.";
 				this.setLoseMessage(message);
-				System.out.println("TEST");
 				((Timer) timer).resetTime();
 			}
 

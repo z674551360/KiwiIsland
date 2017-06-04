@@ -47,7 +47,7 @@ public class Rebirth {
 	public boolean RandomQuestion(){
 		failCount=0;
 		successCount=0;
-		while(failCount<4 && (failCount+successCount)<10){
+		while(failCount<2 && (failCount+successCount)<5){
 			int randomNum = new Random().nextInt(questions.size()-1);
 			Question question = questions.get(randomNum);
 			questions.remove(randomNum);
@@ -86,7 +86,7 @@ public class Rebirth {
 				failCount++;
 			}
 		}
-		if(successCount>=7){
+		if(successCount>=4){
 			return true;
 		}else{
 			return false;
