@@ -447,9 +447,9 @@ public class Game {
 			if (tool.isTrap() && !tool.isBroken()) {
 				success = trapPredator();
 				try {
-					L = new ActionAnimation();
-					L.setRunning(true);
-					L.getInstance(true);
+					actionAnimation = new ActionAnimation();
+					actionAnimation.setRunning(true);
+					actionAnimation.getInstance(true);
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -549,6 +549,7 @@ public class Game {
 		if (!player.isAlive()) {
 			if (new Rebirth().RandomQuestion()) {
 				player.increaseStamina(player.getMaximumStaminaLevel() / 2);
+				System.out.println("True");
 			} else {
 				state = GameState.LOST;
 				message = "Sorry, you have lost the game. " + this.getLoseMessage();
@@ -558,10 +559,11 @@ public class Game {
 		} else if (!playerCanMove()) {
 			if (new Rebirth().RandomQuestion()) {
 				player.increaseStamina(player.getMaximumStaminaLevel() / 2);
+				System.out.println("True");
 			} else {
+				state = GameState.LOST;
 				message = "Sorry, you have lost the game. You do not have sufficient stamina to move.";
 				this.setLoseMessage(message);
-				System.out.println("TEST");
 				((Timer) timer).resetTime();
 			}
 
@@ -661,7 +663,7 @@ public class Game {
 	 */
 	private void handleHazard(Hazard hazard) {
 		if (hazard.isFatal()) {
-			player.kill();
+			player.reduceStamina(player.getStaminaLevel());
 			this.setLoseMessage(hazard.getDescription() + " has killed you.");
 		} else if (hazard.isBreakTrap()) {
 			Tool trap = player.getTrap();
@@ -678,7 +680,7 @@ public class Game {
 			player.reduceStamina(reduction);
 			// if stamina drops to zero: player is dead
 			if (player.getStaminaLevel() <= 0.0) {
-				player.kill();
+				player.reduceStamina(player.getStaminaLevel());
 				this.setLoseMessage(" You have run out of stamina");
 			} else // Let player know what happened
 			{
@@ -1011,7 +1013,7 @@ public class Game {
 	}
 	
 	public ActionAnimation getActionAnimation(){
-		return L;
+		return actionAnimation;
 	}
 	
 
@@ -1027,7 +1029,7 @@ public class Game {
 	private int predatorsRemaining;
 	private Set<GameEventListener> eventListeners;
 	private Thread timer = new Timer(0);
-	private ActionAnimation L;
+	private ActionAnimation actionAnimation;
 
 	private final double MIN_REQUIRED_CATCH = 0.8;
 

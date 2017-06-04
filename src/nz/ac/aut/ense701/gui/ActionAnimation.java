@@ -82,14 +82,14 @@ ActionAnimation.setVisible(false);
     }  
     
     public int getHeight() throws FileNotFoundException, IOException{
-    	BufferedImage bimg1 = ImageIO.read(new File("image/gif.gif"));
+    	BufferedImage bimg1 = ImageIO.read(new File("image/trap.gif"));
 
     	return bimg1.getHeight();
         
     }
     
     public int getWidth() throws FileNotFoundException, IOException{
-    	BufferedImage bimg = ImageIO.read(new File("image/gif.gif"));
+    	BufferedImage bimg = ImageIO.read(new File("image/trap.gif"));
         return bimg.getWidth();
     }
     
@@ -109,7 +109,7 @@ ActionAnimation.setVisible(false);
   
     public ActionAnimation() throws FileNotFoundException, IOException {  
         
-    	image = Toolkit.getDefaultToolkit().createImage("image/gif.gif"); 
+    	image = Toolkit.getDefaultToolkit().createImage("image/trap.gif"); 
         jg = new JDialog();  
         jg.setSize(getWidth(),getHeight());  
         jg.setLayout(new BorderLayout());  

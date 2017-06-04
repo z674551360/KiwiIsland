@@ -1,20 +1,15 @@
 package testForIterationThree;
 
-import java.util.ArrayList;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import junit.framework.TestCase;
-import nz.ac.aut.ense701.gameModel.Question;
 import nz.ac.aut.ense701.gameModel.Rebirth;
 
 
 public class QuestionTest extends TestCase {
 	
-	
-	private ArrayList<Question> questions;
 	private Rebirth rebirth;
 	
 	public QuestionTest() {
@@ -35,9 +30,9 @@ public class QuestionTest extends TestCase {
 	}
 	
 	@Test
-	public void QuestionSizeTest(){
+	public void testQuestionSizeTest(){
 		rebirth =new Rebirth();
-		assertTrue("The ActionAnimation should start",rebirth.getQuestionSize()>=30);
+		assertTrue("There should be true",(rebirth.getQuestionSize())>=20);
 	}
 
 	
