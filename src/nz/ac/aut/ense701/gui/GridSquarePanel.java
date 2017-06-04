@@ -85,7 +85,7 @@ public class GridSquarePanel extends javax.swing.JPanel {
 					// System.out.println(arrays[i]);
 				}
 				if (arrays[i] == 'F') {
-					ImageIcon ico = new ImageIcon("image/food.png");
+					ImageIcon ico = new ImageIcon("image/fauna.png");
 					Image imge = ico.getImage();
 					g.drawImage(imge, 0, 0, this.getWidth(), this.getHeight(), null);
 					// System.out.println(arrays[i]);
@@ -96,6 +96,7 @@ public class GridSquarePanel extends javax.swing.JPanel {
 					g.drawImage(imge, 0, 0, this.getWidth(), this.getHeight(), null);
 					// System.out.println(arrays[i]);
 				}
+
 
 			}
 		}

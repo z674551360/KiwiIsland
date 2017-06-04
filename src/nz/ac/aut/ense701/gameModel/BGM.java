@@ -20,7 +20,7 @@ public class BGM extends Thread {
 	AudioFormat format;
 	SourceDataLine auline = null;
 	DataLine.Info info;
-	String path = "Super Mario.wav";
+	String path = "BackgroundMusic.wav";
 	boolean stop = false;
 
 	public BGM() {
