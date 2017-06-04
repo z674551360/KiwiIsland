@@ -17,30 +17,31 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 
-public class actionAnimation {  
-	private static actionAnimation actionAnimation;  
+public class ActionAnimation {  
+	private static ActionAnimation ActionAnimation;  
     private Image image;  
     private JDialog jg;  
-    
+    private boolean running=false;
     
     public static void instanceInit() throws FileNotFoundException, IOException{  
-        if (actionAnimation == null) {  
-        	actionAnimation = new actionAnimation();  
+        if (ActionAnimation == null) {  
+        	ActionAnimation = new ActionAnimation();  
         }  
     }  
-    public static actionAnimation getInstance(boolean alwaysOnTop) throws FileNotFoundException, IOException {  
-        if (actionAnimation == null) {  
-        	actionAnimation = new actionAnimation();  
+    public static ActionAnimation getInstance(boolean alwaysOnTop) throws FileNotFoundException, IOException {  
+        if (ActionAnimation == null) {  
+        	ActionAnimation = new ActionAnimation();  
         }  
-        actionAnimation.jg.setAlwaysOnTop(alwaysOnTop);  
-        actionAnimation.setVisible(true);  
+        ActionAnimation.jg.setAlwaysOnTop(alwaysOnTop);  
+        ActionAnimation.setVisible(true);  
         new Thread(new Runnable(){
         	@Override
     		public void run() {
     			// TODO Auto-generated method stub
     			try {
     				Thread.sleep(3000);
-    				actionAnimation.jg.dispose();
+    				ActionAnimation.running=false;
+    				ActionAnimation.jg.dispose();
     			} catch (InterruptedException e) {
     				// TODO Auto-generated catch block
     				e.printStackTrace();
@@ -50,7 +51,7 @@ public class actionAnimation {
         	
         	
         }).start();
-        return actionAnimation;  
+        return ActionAnimation;  
     }  
   
     private JPanel getJPanel() {  
@@ -72,8 +73,8 @@ public class actionAnimation {
     }  
   
     public static void closeWindow() {  
-        if (actionAnimation != null) {  
-actionAnimation.setVisible(false);  
+        if (ActionAnimation != null) {  
+ActionAnimation.setVisible(false);  
         }  
     }  
     public void setVisible(boolean b){  
@@ -91,10 +92,22 @@ actionAnimation.setVisible(false);
     	BufferedImage bimg = ImageIO.read(new File("image/gif.gif"));
         return bimg.getWidth();
     }
-
+    
+    public boolean checkRunning(){
+    	if(this.running!=true){
+    		return false;
+    	}else{
+    		return true;
+    	}
+    }
+    
+    public void setRunning(boolean running){
+    	this.running=running;
+    }
+    
 
   
-    public actionAnimation() throws FileNotFoundException, IOException {  
+    public ActionAnimation() throws FileNotFoundException, IOException {  
         
     	image = Toolkit.getDefaultToolkit().createImage("image/gif.gif"); 
         jg = new JDialog();  
